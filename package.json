@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "format": "prettier --write packages/*/{src,tests}/**/*.{html,css,ts,js,vue} apps/*/{src,tests}/**/*.{html,css,ts,js,vue}"
+    "format": "prettier --write packages/*/{src,tests}/**/*.{html,css,ts,js,vue,json} apps/*/{src,tests}/**/*.{html,css,ts,js,vue,json}"
   },
   "keywords": [],
   "author": "",
