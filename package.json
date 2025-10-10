@@ -1,0 +1,21 @@
+{
+  "name": "vqc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write packages/*/{src,tests}/**/*.{html,css,ts,js,vue} apps/*/{src,tests}/**/*.{html,css,ts,js,vue}"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
+  "volta": {
+    "node": "22^"
+  },
+  "devDependencies": {
+    "@manypkg/cli": "^0.25.1",
+    "prettier": "^3.6.2",
+    "syncpack": "^13.0.4"
+  }
+}
