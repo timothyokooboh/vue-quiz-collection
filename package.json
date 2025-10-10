@@ -3,19 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "format": "prettier --write packages/*/{src,tests}/**/*.{html,css,ts,js,vue,json} apps/*/{src,tests}/**/*.{html,css,ts,js,vue,json}"
+    "format": "prettier --no-error-on-unmatched-pattern --write {packages,apps}/*/{src,tests}/**/*.{js,ts,json,md}"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.14.0",
   "volta": {
-    "node": "22^"
+    "node": "22.14.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.37.0",
     "@manypkg/cli": "^0.25.1",
+    "@types/node": "^24.7.1",
+    "eslint": "^9.37.0",
+    "jiti": "^2.6.1",
     "prettier": "^3.6.2",
-    "syncpack": "^13.0.4"
+    "syncpack": "^13.0.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.0"
   }
 }
