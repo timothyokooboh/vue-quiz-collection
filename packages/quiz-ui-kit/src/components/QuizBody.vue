@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div class="flex flex-col gap-3">
+    <slot></slot>
+  </div>
 </template>
 
 <script setup lang="ts"></script>

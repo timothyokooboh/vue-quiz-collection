@@ -8,7 +8,7 @@
       <span>{{ progressPercentage }}% Complete</span>
     </div>
 
-    <Progress
+    <QuizProgress
       v-model="progressPercentage"
       :theme="{
         progressIndicatorBg: theme?.progressIndicatorBg,
@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { Progress } from "@/components/ui/progress";
+import { Progress as QuizProgress } from "@/components/ui/progress";
 import type { ProgressTheme } from "@/components/ui/progress";
 
 export type QuizCompletionProgressProps = {

@@ -1,3 +1,3 @@
-export { default as QuizCompletionProgress } from "./QuizCompletionProgress.vue";
+export { default as QuizCompletionProgress } from "./QuizProgress.vue";
 
-export type { QuizCompletionProgressProps } from "./QuizCompletionProgress.vue";
+export type { QuizCompletionProgressProps } from "./QuizProgress.vue";
