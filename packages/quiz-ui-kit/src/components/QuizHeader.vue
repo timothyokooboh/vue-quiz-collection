@@ -6,7 +6,9 @@
       </div>
 
       <ul class="flex items-center gap-2">
-        <li v-for="tag in tags" :key="tag">{{ tag }}</li>
+        <li v-for="tag in tags" :key="tag">
+          <Badge variant="secondary">{{ tag }}</Badge>
+        </li>
       </ul>
     </div>
 
@@ -17,6 +19,7 @@
 <script setup lang="ts">
 import { totalQuestionsKey } from "@/injection-keys";
 import { inject } from "vue";
+import Badge from "./ui/badge/Badge.vue";
 
 defineProps<{
   tags: string[];

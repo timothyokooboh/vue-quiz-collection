@@ -90,44 +90,44 @@ const handleSelection = () => {
 .quiz-option {
   &[data-quiz-option-status="default"] {
     .quiz-option__ring-outer {
-      border: 1px solid #33b279;
+      border: 1px solid var(--color-green-500);
     }
   }
 
   &[data-quiz-option-status="selected"] {
-    border-color: #33b279;
+    border-color: var(--color-green-500);
 
     .quiz-option__ring-outer {
-      border: 1px solid #33b279;
+      border: 1px solid var(--color-green-500);
     }
 
     .quiz-option__ring-inner {
-      background-color: #33b279;
+      background-color: var(--color-green-500);
     }
   }
 
   &[data-quiz-option-status="success"] {
-    border-color: #33b279;
+    border-color: var(--color-green-500); // #33b279;
 
     .quiz-option__ring-outer {
-      border: 1px solid #33b279;
+      border: 1px solid var(--color-green-500);
     }
 
     .quiz-option__ring-inner {
-      background-color: #33b279;
+      background-color: var(--color-green-500);
     }
   }
 
   &[data-quiz-option-status="error"] {
-    border-color: red;
+    border-color: var(--destructive-foreground);
     background-color: #ffedec;
 
     .quiz-option__ring-outer {
-      border: 1px solid #33b279;
+      border: 1px solid var(--color-green-500);
     }
 
     .quiz-option__ring-inner {
-      background-color: #33b279;
+      background-color: var(--color-green-500);
     }
   }
 
