@@ -7,6 +7,7 @@
     }"
     :data-quiz-option-status="quizOptionStatus"
     :data-quiz-root-status="quizRootStatus"
+    :disabled="showAnswer"
     @click="handleSelection"
   >
     <div class="flex items-center gap-3">
@@ -81,7 +82,7 @@ const quizOptionStatus = computed(() => {
 const onSelectOption = inject(onSelectOptionKey);
 
 const handleSelection = () => {
-  if (showAnswer?.value) return;
+  //  if (showAnswer?.value) return;
   if (onSelectOption) onSelectOption(props.option.id);
 };
 </script>

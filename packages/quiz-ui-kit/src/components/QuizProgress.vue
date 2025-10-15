@@ -11,8 +11,8 @@
     <QuizProgress
       v-model="progressPercentage"
       :theme="{
-        progressIndicatorBg: theme?.progressIndicatorBg,
-        progressRootBg: theme?.progressRootBg,
+        indicatorBgColor: theme?.indicatorBgColor,
+        rootBgColor: theme?.rootBgColor,
       }"
       class="w-full"
     />

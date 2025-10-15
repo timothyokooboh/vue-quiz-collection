@@ -7,8 +7,8 @@ import { ProgressIndicator, ProgressRoot } from "reka-ui";
 import { cn } from "@/lib/utils";
 
 export type ProgressTheme = {
-  progressRootBg?: string;
-  progressIndicatorBg?: string;
+  rootBgColor?: string;
+  indicatorBgColor?: string;
 };
 
 const props = withDefaults(
@@ -27,12 +27,12 @@ const delegatedProps = reactiveOmit(props, "class");
 
 const progressRootBg = computed(
   () =>
-    props.theme?.progressRootBg ??
+    props.theme?.rootBgColor ??
     "color-mix(in oklab, var(--primary) 20%, transparent)",
 );
 
 const progressIndicatorBg = computed(
-  () => props.theme?.progressIndicatorBg ?? "var(--primary)",
+  () => props.theme?.indicatorBgColor ?? "var(--primary)",
 );
 </script>
 

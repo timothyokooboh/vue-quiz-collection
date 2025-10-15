@@ -1,5 +1,5 @@
 <template>
-  <div class="text-sm">
+  <section class="text-sm">
     <div class="mb-4 flex items-center gap-3">
       <div>
         <span>Question {{ questionNumber }} of {{ totalQuestions }}</span>
@@ -12,8 +12,8 @@
       </ul>
     </div>
 
-    <p class="text-base font-bold md:text-lg">{{ question }}</p>
-  </div>
+    <h2 class="text-base font-bold md:text-lg">{{ question }}</h2>
+  </section>
 </template>
 
 <script setup lang="ts">
