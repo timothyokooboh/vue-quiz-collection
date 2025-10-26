@@ -5,6 +5,7 @@ import QuizRoot from "@/components/QuizRoot.vue";
 import QuizHeader from "@/components/QuizHeader.vue";
 import QuizBody from "@/components/QuizBody.vue";
 import QuizOption from "@/components/QuizOption.vue";
+import QuizFeedback from "./components/QuizFeedback.vue";
 
 export type SelectedOption = {
   id: null | string;
@@ -48,6 +49,8 @@ const questions = [
       { id: "d", option: "Rome" },
     ],
     correctOptionId: "c",
+    explanation:
+      "Paris is the capital and largest city of France. Paris is the capital and largest city of France. Paris is the capital and largest city of France. Paris is the capital and largest city of France. Paris is the capital and largest city of France. Paris is the capital and largest city of France.",
   },
   {
     id: 2,
@@ -62,6 +65,27 @@ const questions = [
       { id: "d", option: "6" },
     ],
     correctOptionId: "b",
+    explanation: "2 + 2 equals 4.",
+  },
+  {
+    id: 3,
+    question: "What is the purpose of <script setup> in Vue 3?",
+    difficulty: "Medium",
+    category: "Programming",
+    topic: "Vue.js",
+    options: [
+      { id: "a", option: "To define component styles" },
+      {
+        id: "b",
+        option:
+          "To provide a more concise way to write component logic with Composition API",
+      },
+      { id: "c", option: "To handle component events" },
+      { id: "d", option: "To manage component lifecycle hooks" },
+    ],
+    correctOptionId: "b",
+    explanation:
+      "<script setup> is a syntax sugar in Vue 3 that allows you to provide a more concise way to write component logic with Composition API.",
   },
 ];
 </script>
@@ -73,8 +97,8 @@ const questions = [
       :current-question-index="49"
       :total-questions="100"
       :theme="{
-        progressIndicatorBg: '#33B279',
-        progressRootBg: '#EEF6F3',
+        indicatorBgColor: '#33B279',
+        rootBgColor: '#EEF6F3',
       }"
       class="mb-4"
     />
@@ -118,7 +142,11 @@ const questions = [
             v-for="option in question.options"
             :key="option.id"
             :option="option"
-          />
+          >
+          </QuizOption>
+
+          <QuizFeedback :explanation="question.explanation" class="mt-3">
+          </QuizFeedback>
         </QuizBody>
       </QuizRoot>
     </div>

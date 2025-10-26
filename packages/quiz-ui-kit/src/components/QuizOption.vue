@@ -10,37 +10,45 @@
     :disabled="showAnswer"
     @click="handleSelection"
   >
-    <div class="flex items-center gap-3">
+    <div class="flex items-start gap-3">
       <div
-        class="quiz-option__ring-outer flex h-4 w-4 items-center justify-center rounded-full"
+        class="quiz-option__ring-outer flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
       >
         <div class="quiz-option__ring-inner h-2 w-2 rounded-full"></div>
       </div>
-      <p>{{ option.option }}</p>
+      <p class="-mt-1">{{ option.option }}</p>
     </div>
 
-    <slot
+    <div
       v-if="showAnswer && option.id === correctOptionId && quizOptionStatus"
-      name="successIcon"
+      class="shrink-0"
     >
-      <div
-        class="border-1 flex h-4 w-4 items-center justify-center rounded-full border-black"
-        :class="{
-          'border-green-500': quizOptionStatus === 'success',
-          'border-black': quizOptionStatus !== 'success',
-        }"
-      >
-        <Check class="h-2 w-2" />
-      </div>
-    </slot>
+      <slot name="successIcon">
+        <div
+          class="border-1 flex h-4 w-4 items-center justify-center rounded-full border-black"
+          :class="{
+            'border-green-500': quizOptionStatus === 'success',
+            'border-black': quizOptionStatus !== 'success',
+          }"
+        >
+          <Check class="h-2 w-2" />
+        </div>
+      </slot>
+    </div>
 
-    <slot v-if="showAnswer && quizOptionStatus === 'error'" name="errorIcon">
-      <div
-        class="border-1 flex h-4 w-4 items-center justify-center rounded-full border-red-500"
-      >
-        <X class="h-2 w-2 text-red-500" />
-      </div>
-    </slot>
+    <div
+      v-if="showAnswer && quizOptionStatus === 'error'"
+      name="errorIcon"
+      class="shrink-0"
+    >
+      <slot>
+        <div
+          class="border-1 flex h-4 w-4 items-center justify-center rounded-full border-red-500"
+        >
+          <X class="h-2 w-2 text-red-500" />
+        </div>
+      </slot>
+    </div>
   </button>
 </template>
 
@@ -55,7 +63,7 @@ import {
 } from "@/injection-keys";
 import { Check, X } from "lucide-vue-next";
 
-const props = defineProps<{
+export type QuizOptionProps = {
   option: { id: string; option: string };
   theme?: {
     defaultBorderColor?: string;
@@ -66,7 +74,9 @@ const props = defineProps<{
     successBgColor?: string;
     errorBgColor?: string;
   };
-}>();
+};
+
+const props = defineProps<QuizOptionProps>();
 
 const selectedOptionId = inject(selectedOptionIdKey);
 const showAnswer = inject(showAnswerKey);

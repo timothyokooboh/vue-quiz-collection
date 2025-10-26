@@ -7,12 +7,12 @@
 
       <ul class="flex items-center gap-2">
         <li v-for="tag in tags" :key="tag">
-          <Badge variant="secondary">{{ tag }}</Badge>
+          <Badge variant="secondary" class="capitalize">{{ tag }}</Badge>
         </li>
       </ul>
     </div>
 
-    <h2 class="text-base font-bold md:text-lg">{{ question }}</h2>
+    <slot></slot>
   </section>
 </template>
 
@@ -21,11 +21,12 @@ import { totalQuestionsKey } from "@/injection-keys";
 import { inject } from "vue";
 import Badge from "./ui/badge/Badge.vue";
 
-defineProps<{
+export type QuizHeaderProps = {
   tags: string[];
   questionNumber: number;
-  question: string;
-}>();
+};
+
+defineProps<QuizHeaderProps>();
 
 const totalQuestions = inject(totalQuestionsKey);
 </script>

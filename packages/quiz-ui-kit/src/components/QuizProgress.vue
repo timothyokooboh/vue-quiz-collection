@@ -24,7 +24,7 @@ import { computed } from "vue";
 import { Progress as QuizProgress } from "@/components/ui/progress";
 import type { ProgressTheme } from "@/components/ui/progress";
 
-export type QuizCompletionProgressProps = {
+export type QuizProgressProps = {
   /**
    * The current question index (0-based).
    */
@@ -40,7 +40,7 @@ export type QuizCompletionProgressProps = {
   theme?: ProgressTheme;
 };
 
-const props = defineProps<QuizCompletionProgressProps>();
+const props = defineProps<QuizProgressProps>();
 
 const progressPercentage = computed(() => {
   if (props.totalQuestions === 0) return 0;

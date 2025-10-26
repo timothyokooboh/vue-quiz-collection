@@ -42,14 +42,7 @@
         </slot>
       </div>
 
-      <slot name="explanation" :status="quizRootStatus">
-        <div class="mt-3">
-          <div class="text-sm">
-            <span class="mr-1 font-bold">Explanation:</span>
-            <span>{{ explanation }}</span>
-          </div>
-        </div>
-      </slot>
+      <slot name="explanation" :status="quizRootStatus"> </slot>
     </div>
   </div>
 </template>
@@ -59,15 +52,17 @@ import { computed, inject } from "vue";
 import { quizRootStatusKey, showAnswerKey } from "@/injection-keys";
 import { Check, X } from "lucide-vue-next";
 
-const props = defineProps<{
-  explanation: string;
+export type QuizFeedbackProps = {
+  referenceLink: string;
   theme?: {
     successBgColor?: string;
     successBorderColor?: string;
     errorBgColor?: string;
     errorBorderColor?: string;
   };
-}>();
+};
+
+const props = defineProps<QuizFeedbackProps>();
 
 const quizRootStatus = inject(quizRootStatusKey);
 const showAnswer = inject(showAnswerKey);
