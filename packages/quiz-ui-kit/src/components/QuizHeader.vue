@@ -1,6 +1,6 @@
 <template>
   <section class="text-sm">
-    <div class="mb-4 flex items-center gap-3">
+    <div class="mb-4 flex flex-col gap-3 md:flex-row md:items-center">
       <div>
         <span>Question {{ questionNumber }} of {{ totalQuestions }}</span>
       </div>
