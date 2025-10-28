@@ -1,4 +1,23 @@
-node_modules
+node_modules/
 .env
 dist
 .DS_Store
+# Build outputs
+dist
+.output
+.nuxt
+.nitro
+.cache
+# Nuxt specific
+.data
+# Local env files
+.env
+.env.*
+!.env.example
+# Logs
+logs
+*.log
+# IDE
+.fleet
+.idea
+# OS
