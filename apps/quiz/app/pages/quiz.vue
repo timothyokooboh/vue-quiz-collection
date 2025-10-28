@@ -1,8 +1,6 @@
 <template>
   <div class="mx-auto max-w-[960px] p-4">
-    <h1 class="mb-3">
-      Test your knowledge of Vue.js, Vue router and Pinia xxx
-    </h1>
+    <h1 class="mb-3">Test your knowledge of Vue.js, Vue router and Pinia</h1>
 
     <QuizFilters class="mb-4" />
 
