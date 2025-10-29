@@ -74,9 +74,7 @@ useSeoMeta({
   ogDescription: "Test your Vue.js knowledge with this interactive quiz!",
 });
 
-const { data: quiz } = await useAsyncData("quiz", () => {
-  return queryCollection("quiz").all();
-});
+const { quiz } = await useQuiz();
 
 export type SelectedOption = {
   id: null | string;
