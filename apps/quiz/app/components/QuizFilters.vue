@@ -89,13 +89,23 @@ const { filters, updateFilters, clearFilters } = useFilters();
 </template>
 
 <style scoped>
+/* https://vuejs.org/guide/built-ins/transition-group.html#move-transitions */
+
+.list-move, /* apply transition to moving elements */
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
+
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+  position: absolute;
 }
 </style>
