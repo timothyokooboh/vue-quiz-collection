@@ -10,7 +10,9 @@ export const useQuiz = () => {
   const difficulties = ref(["Easy", "Medium", "Hard"]);
 
   const topics = computed(() => {
-    return Array.from(new Set(quiz.value?.map((q) => q.topic) ?? []));
+    return Array.from(
+      new Set(quiz.value?.map((question) => question.topic) ?? []),
+    ).sort();
   });
 
   return {

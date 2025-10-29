@@ -69,7 +69,7 @@ const { filters, updateFilters, clearFilters } = useFilters();
 
       <section>
         <h2 class="mb-3 text-sm font-bold">Topics</h2>
-        <ul class="flex flex-wrap gap-2">
+        <TransitionGroup name="list" tag="ul" class="flex flex-wrap gap-2">
           <li v-for="topic in filters.availableTopics" :key="topic">
             <Button
               :variant="
@@ -82,10 +82,20 @@ const { filters, updateFilters, clearFilters } = useFilters();
               {{ topic }}
             </Button>
           </li>
-        </ul>
+        </TransitionGroup>
       </section>
     </CollapsibleContent>
   </Collapsible>
 </template>
 
-<style scoped></style>
+<style scoped>
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+</style>
