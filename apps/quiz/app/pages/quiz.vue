@@ -74,7 +74,7 @@ useSeoMeta({
   ogDescription: "Test your Vue.js knowledge with this interactive quiz!",
 });
 
-const { quiz } = await useQuiz();
+const { quiz } = useQuiz();
 
 export type SelectedOption = {
   id: null | string;

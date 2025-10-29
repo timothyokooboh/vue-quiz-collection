@@ -68,6 +68,9 @@ importers:
       '@vueuse/core':
         specifier: ^13.9.0
         version: 13.9.0(vue@3.5.22(typescript@5.9.3))
+      '@vueuse/router':
+        specifier: ^14.0.0
+        version: 14.0.0(vue-router@4.6.3(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))
       better-sqlite3:
         specifier: ^12.4.1
         version: 12.4.1
@@ -2276,11 +2279,22 @@ packages:
   '@vueuse/metadata@13.9.0':
     resolution: {integrity: sha512-1AFRvuiGphfF7yWixZa0KwjYH8ulyjDCC0aFgrGRz8+P4kvDFSdXLVfTk5xAN9wEuD1J6z4/myMoYbnHoX07zg==}
 
+  '@vueuse/router@14.0.0':
+    resolution: {integrity: sha512-8HSq6Q2uJum8NUSP900s1NcfUnNQeTO0FqgEbMgO+xse/B/6A7Zn6chX+6ZA1r1p5P5LfaSOKqjQmf09BiakzQ==}
+    peerDependencies:
+      vue: ^3.5.0
+      vue-router: ^4.0.0
+
   '@vueuse/shared@12.8.2':
     resolution: {integrity: sha512-dznP38YzxZoNloI0qpEfpkms8knDtaoQ6Y/sfS0L7Yki4zh40LFHEhur0odJC6xTHG5dxWVPiUWBXn+wCG2s5w==}
 
   '@vueuse/shared@13.9.0':
     resolution: {integrity: sha512-e89uuTLMh0U5cZ9iDpEI2senqPGfbPRTHM/0AaQkcxnpqjkZqDYP8rpfm7edOz8s+pOCOROEy1PIveSW8+fL5g==}
+    peerDependencies:
+      vue: ^3.5.0
+
+  '@vueuse/shared@14.0.0':
+    resolution: {integrity: sha512-mTCA0uczBgurRlwVaQHfG0Ja7UdGe4g9mwffiJmvLiTtp1G4AQyIjej6si/k8c8pUwTfVpNufck+23gXptPAkw==}
     peerDependencies:
       vue: ^3.5.0
 
@@ -8930,6 +8944,12 @@ snapshots:
 
   '@vueuse/metadata@13.9.0': {}
 
+  '@vueuse/router@14.0.0(vue-router@4.6.3(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))':
+    dependencies:
+      '@vueuse/shared': 14.0.0(vue@3.5.22(typescript@5.9.3))
+      vue: 3.5.22(typescript@5.9.3)
+      vue-router: 4.6.3(vue@3.5.22(typescript@5.9.3))
+
   '@vueuse/shared@12.8.2(typescript@5.9.3)':
     dependencies:
       vue: 3.5.22(typescript@5.9.3)
@@ -8937,6 +8957,10 @@ snapshots:
       - typescript
 
   '@vueuse/shared@13.9.0(vue@3.5.22(typescript@5.9.3))':
+    dependencies:
+      vue: 3.5.22(typescript@5.9.3)
+
+  '@vueuse/shared@14.0.0(vue@3.5.22(typescript@5.9.3))':
     dependencies:
       vue: 3.5.22(typescript@5.9.3)
 

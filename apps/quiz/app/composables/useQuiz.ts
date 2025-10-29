@@ -1,20 +1,16 @@
-import { computed } from "vue";
+import { ref, computed } from "vue";
 
-export const useQuiz = async () => {
-  const { data: quiz } = await useAsyncData("quiz", () => {
+export const useQuiz = () => {
+  const { data: quiz } = useAsyncData("quiz", () => {
     return queryCollection("quiz").all();
   });
 
-  const categories = computed(() => {
-    return quiz.value?.map((q) => q.category);
-  });
+  const categories = ref(["Vue.js", "Vue router", "Pinia"]);
+
+  const difficulties = ref(["Easy", "Medium", "Hard"]);
 
   const topics = computed(() => {
-    return quiz.value?.map((q) => q.topic);
-  });
-
-  const difficulties = computed(() => {
-    return quiz.value?.map((q) => q.difficulty);
+    return Array.from(new Set(quiz.value?.map((q) => q.topic) ?? []));
   });
 
   return {

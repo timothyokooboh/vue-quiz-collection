@@ -6,6 +6,9 @@ import {
 } from "@/components/ui/collapsible";
 
 import { Button } from "@/components/ui/button";
+
+const { categories, difficulties } = useQuiz();
+const { filters, updateFilters, clearFilters } = useFilters();
 </script>
 
 <template>
@@ -19,7 +22,7 @@ import { Button } from "@/components/ui/button";
     </CollapsibleTrigger>
     <CollapsibleContent class="border-t px-4 pb-4 pt-2">
       <div class="flex justify-end">
-        <Button variant="ghost" class="cursor-pointer">
+        <Button variant="ghost" class="cursor-pointer" @click="clearFilters">
           <Icon name="lucide:x" /> Clear all</Button
         >
       </div>
@@ -27,120 +30,56 @@ import { Button } from "@/components/ui/button";
       <section class="mb-5">
         <h2 class="mb-3 text-sm font-bold">Categories</h2>
         <ul class="flex gap-2">
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Vue.js
-            </Button>
-          </li>
-          <li>
-            <Button size="sm" class="rounded-full text-xs"> Vue router </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Pinia
+          <li v-for="category in categories" :key="category">
+            <Button
+              :variant="
+                filters.selectedCategories.includes(category)
+                  ? 'default'
+                  : 'outline'
+              "
+              size="sm"
+              class="cursor-pointer rounded-full text-xs"
+              @click="updateFilters('category', category)"
+            >
+              {{ category }}
             </Button>
           </li>
         </ul>
       </section>
 
       <section class="mb-5">
-        <h2 class="mb-3 text-sm font-bold">Topics</h2>
-        <ul class="flex flex-wrap gap-2">
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Vue.js
-            </Button>
-          </li>
-          <li>
-            <Button size="sm" class="rounded-full text-xs"> Vue router </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Pinia
-            </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Vue.js
-            </Button>
-          </li>
-          <li>
-            <Button size="sm" class="rounded-full text-xs"> Vue router </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Pinia
-            </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Vue.js
-            </Button>
-          </li>
-          <li>
-            <Button size="sm" class="rounded-full text-xs"> Vue router </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Pinia
-            </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Vue.js
-            </Button>
-          </li>
-          <li>
-            <Button size="sm" class="rounded-full text-xs"> Vue router </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Pinia
-            </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Vue.js
-            </Button>
-          </li>
-          <li>
-            <Button size="sm" class="rounded-full text-xs"> Vue router </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Pinia
-            </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Vue.js
-            </Button>
-          </li>
-          <li>
-            <Button size="sm" class="rounded-full text-xs"> Vue router </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Pinia
+        <h2 class="mb-3 text-sm font-bold">Difficulty</h2>
+        <ul class="flex gap-2">
+          <li v-for="difficulty in difficulties" :key="difficulty">
+            <Button
+              :variant="
+                filters.selectedDifficulties.includes(difficulty)
+                  ? 'default'
+                  : 'outline'
+              "
+              size="sm"
+              class="cursor-pointer rounded-full text-xs"
+              @click="updateFilters('difficulty', difficulty)"
+            >
+              {{ difficulty }}
             </Button>
           </li>
         </ul>
       </section>
 
       <section>
-        <h2 class="mb-3 text-sm font-bold">Difficulty</h2>
-        <ul class="flex gap-2">
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Easy
-            </Button>
-          </li>
-          <li>
-            <Button size="sm" class="rounded-full text-xs"> Medium </Button>
-          </li>
-          <li>
-            <Button variant="outline" size="sm" class="rounded-full text-xs">
-              Hard
+        <h2 class="mb-3 text-sm font-bold">Topics</h2>
+        <ul class="flex flex-wrap gap-2">
+          <li v-for="topic in filters.availableTopics" :key="topic">
+            <Button
+              :variant="
+                filters.selectedTopics.includes(topic) ? 'default' : 'outline'
+              "
+              size="sm"
+              class="cursor-pointer rounded-full text-xs"
+              @click="updateFilters('topic', topic)"
+            >
+              {{ topic }}
             </Button>
           </li>
         </ul>
