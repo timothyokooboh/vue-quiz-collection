@@ -12,7 +12,7 @@ export const useQuiz = () => {
   const topics = computed(() => {
     return Array.from(
       new Set(quiz.value?.map((question) => question.topic) ?? []),
-    ).sort();
+    );
   });
 
   return {

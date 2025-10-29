@@ -31,6 +31,7 @@ export const useFilters = () => {
       return allTopics.value;
     }
 
+    // Filter questions based on category and difficulty
     const filtered =
       quiz.value?.filter((q) => {
         const matchesCategory =
@@ -43,45 +44,23 @@ export const useFilters = () => {
     return Array.from(new Set(filtered.map((q) => q.topic)));
   });
 
-  const filters = computed<{
-    selectedCategories: string[];
-    availableTopics: string[];
-    selectedDifficulties: string[];
-    selectedTopics: string[];
-  }>(() => {
+  const filters = computed(() => {
     return {
       selectedCategories: categories.value,
-      availableTopics: filteredTopics.value,
+      availableTopics: filteredTopics.value.sort((a, b) => a.localeCompare(b)),
       selectedTopics: topics.value,
       selectedDifficulties: difficulties.value,
     };
   });
 
-  const toggleCategory = (filterValue: string) => {
-    if (categories.value.includes(filterValue)) {
-      categories.value = categories.value.filter(
+  const toggleFilter = (filterArray: Ref<string[]>, filterValue: string) => {
+    const index = filterArray.value.indexOf(filterValue);
+    if (index > -1) {
+      filterArray.value = filterArray.value.filter(
         (filter) => filter !== filterValue,
       );
     } else {
-      categories.value = [...categories.value, filterValue];
-    }
-  };
-
-  const toggleTopic = (filterValue: string) => {
-    if (topics.value.includes(filterValue)) {
-      topics.value = topics.value.filter((filter) => filter !== filterValue);
-    } else {
-      topics.value = [...topics.value, filterValue];
-    }
-  };
-
-  const toggleDifficulty = (filterValue: string) => {
-    if (difficulties.value.includes(filterValue)) {
-      difficulties.value = difficulties.value.filter(
-        (filter) => filter !== filterValue,
-      );
-    } else {
-      difficulties.value = [...difficulties.value, filterValue];
+      filterArray.value = [...filterArray.value, filterValue];
     }
   };
 
@@ -89,19 +68,12 @@ export const useFilters = () => {
     type: "category" | "topic" | "difficulty",
     value: string,
   ) => {
-    switch (type) {
-      case "category":
-        toggleCategory(value);
-        break;
-      case "topic":
-        toggleTopic(value);
-        break;
-      case "difficulty":
-        toggleDifficulty(value);
-        break;
-      default:
-        break;
-    }
+    const filterMap = {
+      category: categories,
+      topic: topics,
+      difficulty: difficulties,
+    };
+    toggleFilter(filterMap[type], value);
   };
 
   const clearFilters = () => {
