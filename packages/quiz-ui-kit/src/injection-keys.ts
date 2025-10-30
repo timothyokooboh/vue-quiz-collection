@@ -7,12 +7,13 @@ export const quizRootStatusKey: InjectionKey<
 export const onSelectOptionKey: InjectionKey<(optionId: string) => void> =
   Symbol("onSelectOption");
 
-export const totalQuestionsKey: InjectionKey<number> = Symbol("totalQuestions");
+export const totalQuestionsKey: InjectionKey<Ref<number>> =
+  Symbol("totalQuestions");
 
 export const selectedOptionIdKey: InjectionKey<Ref<string | null>> =
   Symbol("selectedOptionId");
 
 export const showAnswerKey: InjectionKey<Ref<boolean>> = Symbol("showAnswer");
 
-export const correctOptionIdKey: InjectionKey<string> =
+export const correctOptionIdKey: InjectionKey<Ref<string>> =
   Symbol("correctOptionId");

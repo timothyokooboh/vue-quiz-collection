@@ -7,6 +7,7 @@ export default defineContentConfig({
       type: "data",
       source: "quiz/*.md",
       schema: z.object({
+        _id: z.string(),
         questionType: z.string(),
         explanationType: z.string(),
         category: z.enum(["Vue.js", "Vue router", "Pinia"]),

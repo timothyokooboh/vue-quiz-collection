@@ -46,7 +46,10 @@ const onSelectOption = (optionId: string) => {
 
 provide(quizRootStatusKey, quizRootStatus);
 provide(onSelectOptionKey, onSelectOption);
-provide(totalQuestionsKey, props.totalQuestions);
+provide(
+  totalQuestionsKey,
+  computed(() => props.totalQuestions),
+);
 provide(
   selectedOptionIdKey,
   computed(() => props.selectedOption?.id),
@@ -55,7 +58,10 @@ provide(
   showAnswerKey,
   computed(() => props.showAnswer),
 );
-provide(correctOptionIdKey, props.correctOptionId);
+provide(
+  correctOptionIdKey,
+  computed(() => props.correctOptionId),
+);
 </script>
 
 <style scoped></style>

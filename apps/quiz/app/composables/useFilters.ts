@@ -4,27 +4,27 @@ export const useFilters = () => {
   const { quiz, topics: allTopics } = useQuiz();
 
   // sync category filters with URL
-  const categories = useRouteQuery<string[]>("categories", [], {
+  const selectedCategories = useRouteQuery<string[]>("categories", [], {
     route: useRoute(),
     router: useRouter(),
   });
 
   // sync difficulty filters with URL
-  const difficulties = useRouteQuery<string[]>("difficulties", [], {
+  const selectedDifficulties = useRouteQuery<string[]>("difficulties", [], {
     route: useRoute(),
     router: useRouter(),
   });
 
   // sync topic filters with URL
-  const topics = useRouteQuery<string[]>("topics", [], {
+  const selectedTopics = useRouteQuery<string[]>("topics", [], {
     route: useRoute(),
     router: useRouter(),
   });
 
   // derive topics based on category and difficulty filters
   const filteredTopics = computed(() => {
-    const hasCategories = categories.value.length > 0;
-    const hasDifficulties = difficulties.value.length > 0;
+    const hasCategories = selectedCategories.value.length > 0;
+    const hasDifficulties = selectedDifficulties.value.length > 0;
 
     // If no filters are applied, return all topics
     if (!hasCategories && !hasDifficulties) {
@@ -35,21 +35,33 @@ export const useFilters = () => {
     const filtered =
       quiz.value?.filter((q) => {
         const matchesCategory =
-          !hasCategories || categories.value.includes(q.category);
+          !hasCategories || selectedCategories.value.includes(q.category);
         const matchesDifficulty =
-          !hasDifficulties || difficulties.value.includes(q.difficulty);
+          !hasDifficulties || selectedDifficulties.value.includes(q.difficulty);
         return matchesCategory && matchesDifficulty;
       }) ?? [];
 
     return Array.from(new Set(filtered.map((q) => q.topic)));
   });
 
+  const availableTopics = computed(() => {
+    return [...filteredTopics.value].sort((a, b) => a.localeCompare(b));
+  });
+
+  watch(availableTopics, (newValue) => {
+    selectedTopics.value.forEach((topic, index) => {
+      if (!newValue.includes(topic)) {
+        selectedTopics.value.splice(index, 1);
+      }
+    });
+  });
+
   const filters = computed(() => {
     return {
-      selectedCategories: categories.value,
-      availableTopics: filteredTopics.value.sort((a, b) => a.localeCompare(b)),
-      selectedTopics: topics.value,
-      selectedDifficulties: difficulties.value,
+      selectedCategories: selectedCategories.value,
+      availableTopics: availableTopics.value,
+      selectedTopics: selectedTopics.value,
+      selectedDifficulties: selectedDifficulties.value,
     };
   });
 
@@ -69,17 +81,17 @@ export const useFilters = () => {
     value: string,
   ) => {
     const filterMap = {
-      category: categories,
-      topic: topics,
-      difficulty: difficulties,
+      category: selectedCategories,
+      topic: selectedTopics,
+      difficulty: selectedDifficulties,
     };
     toggleFilter(filterMap[type], value);
   };
 
   const clearFilters = () => {
-    categories.value = [];
-    topics.value = [];
-    difficulties.value = [];
+    selectedCategories.value = [];
+    selectedTopics.value = [];
+    selectedDifficulties.value = [];
   };
 
   return {

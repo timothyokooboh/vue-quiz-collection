@@ -6,11 +6,11 @@
 
     <div v-if="quiz" class="flex flex-col gap-4">
       <QuizRoot
-        v-for="(question, index) in quiz"
-        :key="question.id"
-        :question-id="question.id.toString()"
+        v-for="(question, index) in filteredQuiz"
+        :key="question._id"
+        :question-id="question._id"
         :correct-option-id="question.correctOptionId"
-        :total-questions="quiz.length"
+        :total-questions="filteredQuiz?.length ?? 0"
         :show-answer="true"
         :selected-option="getSelectedOption(question.id.toString())"
         @select:option="onSelectOption"
@@ -74,12 +74,22 @@ useSeoMeta({
   ogDescription: "Test your Vue.js knowledge with this interactive quiz!",
 });
 
-const { quiz } = useQuiz();
-
 export type SelectedOption = {
   id: null | string;
   questionId: string;
 };
+
+const { quiz } = useQuiz();
+const { filters } = useFilters();
+const filteredQuiz = computed(() => {
+  return quiz.value?.filter((q) => {
+    if (filters.value.selectedTopics.length === 0) {
+      return filters.value.availableTopics.includes(q.topic);
+    } else {
+      return filters.value.selectedTopics.includes(q.topic);
+    }
+  });
+});
 
 const showAnswer = ref(false);
 const selectedOptions = ref<SelectedOption[]>([]);
