@@ -31,6 +31,12 @@ export const useFilters = () => {
     routeQueryOptions,
   );
 
+  // sync mode with URL
+  const mode = useRouteQuery<string>("mode", "quiz");
+  const updateMode = (value: string) => {
+    mode.value = value;
+  };
+
   // derive topics based on category and difficulty filters
   const filteredTopics = computed(() => {
     const hasCategories = selectedCategories.value.length > 0;
@@ -66,15 +72,6 @@ export const useFilters = () => {
     });
   });
 
-  const filters = computed(() => {
-    return {
-      selectedCategories: selectedCategories.value,
-      availableTopics: availableTopics.value,
-      selectedTopics: selectedTopics.value,
-      selectedDifficulties: selectedDifficulties.value,
-    };
-  });
-
   const toggleFilter = (filterArray: Ref<string[]>, filterValue: string) => {
     const index = filterArray.value.indexOf(filterValue);
     if (index > -1) {
@@ -87,7 +84,7 @@ export const useFilters = () => {
   };
 
   const updateFilters = (
-    type: "category" | "topic" | "difficulty",
+    type: "category" | "topic" | "difficulty" | "mode",
     value: string,
   ) => {
     const filterMap = {
@@ -96,17 +93,26 @@ export const useFilters = () => {
       difficulty: selectedDifficulties,
     };
 
-    toggleFilter(filterMap[type], value);
+    if (type === "mode") {
+      updateMode(value);
+    } else {
+      toggleFilter(filterMap[type], value);
+    }
   };
 
   const clearFilters = () => {
     selectedCategories.value = [];
     selectedTopics.value = [];
     selectedDifficulties.value = [];
+    updateMode("quiz");
   };
 
   return {
-    filters,
+    mode,
+    selectedCategories,
+    selectedDifficulties,
+    selectedTopics,
+    availableTopics,
     updateFilters,
     clearFilters,
   };

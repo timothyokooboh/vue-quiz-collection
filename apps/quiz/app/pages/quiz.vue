@@ -1,10 +1,57 @@
 <template>
-  <div class="mx-auto max-w-[960px] p-4">
-    <h1 class="mb-3">Test your knowledge of Vue.js, Vue router and Pinia</h1>
+  <div class="mx-auto max-w-[960px] p-5">
+    <Stepper v-model="activeStep" class="mb-4 flex w-full items-start gap-2">
+      <StepperItem
+        v-for="step in steps"
+        :key="step.step"
+        v-slot="{ state }"
+        class="relative flex w-full flex-col items-center justify-center"
+        :step="step.step"
+      >
+        <StepperSeparator
+          v-if="step.step !== steps[steps.length - 1]?.step"
+          class="bg-muted group-data-[state=completed]:bg-primary absolute left-[calc(50%+20px)] right-[calc(-50%+10px)] top-5 block h-0.5 shrink-0 rounded-full"
+        />
 
-    <QuizFilters class="mb-4" />
+        <StepperTrigger as-child>
+          <Button
+            :variant="
+              state === 'completed' || state === 'active'
+                ? 'default'
+                : 'outline'
+            "
+            size="icon"
+            class="z-10 shrink-0 rounded-full"
+            :class="[
+              state === 'active' &&
+                'ring-ring ring-offset-background ring-2 ring-offset-2',
+            ]"
+          >
+            <Icon name="lucide:check" v-if="state === 'completed'" />
+            <Icon name="lucide:circle" v-if="state === 'active'" />
+            <Icon name="lucide:dot" v-if="state === 'inactive'" />
+          </Button>
+        </StepperTrigger>
 
-    <div v-if="quiz" class="flex flex-col gap-4">
+        <div class="mt-5 flex flex-col items-center text-center">
+          <StepperTitle
+            :class="[state === 'active' && 'text-primary']"
+            class="text-sm font-semibold transition lg:text-base"
+          >
+            {{ step.title }}
+          </StepperTitle>
+        </div>
+      </StepperItem>
+    </Stepper>
+
+    <template v-if="activeStep === 1">
+      <QuizFilters />
+      <div class="mt-3 flex justify-end">
+        <Button class="cursor-pointer">Start Quiz</Button>
+      </div>
+    </template>
+
+    <div v-else class="flex flex-col gap-4">
       <QuizRoot
         v-for="(question, index) in filteredQuiz"
         :key="question._id"
@@ -67,6 +114,16 @@ import {
   QuizFeedback,
 } from "@vqc/quiz-ui-kit";
 
+import { Button } from "@/components/ui/button";
+
+import {
+  Stepper,
+  StepperItem,
+  StepperSeparator,
+  StepperTitle,
+  StepperTrigger,
+} from "@/components/ui/stepper";
+
 useSeoMeta({
   title: "Vue.js Quiz",
   description: "Test your Vue.js knowledge with this interactive quiz!",
@@ -79,14 +136,28 @@ export type SelectedOption = {
   questionId: string;
 };
 
+const steps = [
+  {
+    step: 1,
+    title: "Filters",
+    description: "Optionally apply filters to narrow down the questions",
+  },
+  {
+    step: 2,
+    title: "Quiz",
+    description: "Start answering the questions",
+  },
+];
+
+const activeStep = ref(1);
 const { quiz } = useQuiz();
-const { filters } = useFilters();
+const { selectedTopics, availableTopics } = useFilters();
 const filteredQuiz = computed(() => {
   return quiz.value?.filter((q) => {
-    if (filters.value.selectedTopics.length === 0) {
-      return filters.value.availableTopics.includes(q.topic);
+    if (selectedTopics.value.length === 0) {
+      return availableTopics.value.includes(q.topic);
     } else {
-      return filters.value.selectedTopics.includes(q.topic);
+      return selectedTopics.value.includes(q.topic);
     }
   });
 });
