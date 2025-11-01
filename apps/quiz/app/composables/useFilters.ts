@@ -2,24 +2,34 @@ import { useRouteQuery } from "@vueuse/router";
 
 export const useFilters = () => {
   const { quiz, topics: allTopics } = useQuiz();
+  const routeQueryOptions = {
+    route: useRoute(),
+    router: useRouter(),
+    transform: (value: string | string[]) => {
+      return typeof value === "string" ? [value] : value;
+    },
+  };
 
   // sync category filters with URL
-  const selectedCategories = useRouteQuery<string[]>("categories", [], {
-    route: useRoute(),
-    router: useRouter(),
-  });
+  const selectedCategories = useRouteQuery<string[]>(
+    "categories",
+    [],
+    routeQueryOptions,
+  );
 
   // sync difficulty filters with URL
-  const selectedDifficulties = useRouteQuery<string[]>("difficulties", [], {
-    route: useRoute(),
-    router: useRouter(),
-  });
+  const selectedDifficulties = useRouteQuery<string[]>(
+    "difficulties",
+    [],
+    routeQueryOptions,
+  );
 
   // sync topic filters with URL
-  const selectedTopics = useRouteQuery<string[]>("topics", [], {
-    route: useRoute(),
-    router: useRouter(),
-  });
+  const selectedTopics = useRouteQuery<string[]>(
+    "topics",
+    [],
+    routeQueryOptions,
+  );
 
   // derive topics based on category and difficulty filters
   const filteredTopics = computed(() => {
@@ -85,6 +95,7 @@ export const useFilters = () => {
       topic: selectedTopics,
       difficulty: selectedDifficulties,
     };
+
     toggleFilter(filterMap[type], value);
   };
 
