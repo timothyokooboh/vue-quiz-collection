@@ -27,9 +27,9 @@
                 'ring-ring ring-offset-background ring-2 ring-offset-2',
             ]"
           >
-            <Icon name="lucide:check" v-if="state === 'completed'" />
-            <Icon name="lucide:circle" v-if="state === 'active'" />
-            <Icon name="lucide:dot" v-if="state === 'inactive'" />
+            <Icon v-if="state === 'completed'" name="lucide:check" />
+            <Icon v-if="state === 'active'" name="lucide:circle" />
+            <Icon v-if="state === 'inactive'" name="lucide:dot" />
           </Button>
         </StepperTrigger>
 
@@ -47,22 +47,25 @@
     <template v-if="activeStep === 1">
       <QuizFilters />
       <div class="mt-3 flex justify-end">
-        <Button class="cursor-pointer">Start Quiz</Button>
+        <Button @click="activeStep = 2">Start Quiz</Button>
       </div>
     </template>
 
     <div v-else class="flex flex-col gap-4">
+      <Button variant="outline" class="w-fit" @click="activeStep = 1">
+        <Icon name="lucide:arrow-left" />
+        Back to Filters
+      </Button>
+
       <QuizRoot
         v-for="(question, index) in filteredQuiz"
         :key="question._id"
         :question-id="question._id"
         :correct-option-id="question.correctOptionId"
         :total-questions="filteredQuiz?.length ?? 0"
-        :show-answer="true"
-        :selected-option="getSelectedOption(question.id.toString())"
+        :show-answer="showAnswer"
         @select:option="onSelectOption"
       >
-        <!-- <h2 class="text-base font-bold md:text-lg">{{ question }}</h2> -->
         <QuizHeader
           :tags="[question.difficulty, question.category, question.topic]"
           :question-number="index + 1"
@@ -101,6 +104,10 @@
           </QuizFeedback>
         </QuizBody>
       </QuizRoot>
+
+      <div v-if="mode === 'quiz'" class="flex justify-end">
+        <Button @click="showAnswer = true">Submit</Button>
+      </div>
     </div>
   </div>
 </template>
@@ -123,6 +130,12 @@ import {
   StepperTitle,
   StepperTrigger,
 } from "@/components/ui/stepper";
+import { useRouteQuery } from "@vueuse/router";
+
+export type SelectedOption = {
+  id: null | string;
+  questionId: string;
+};
 
 useSeoMeta({
   title: "Vue.js Quiz",
@@ -130,11 +143,6 @@ useSeoMeta({
   ogTitle: "Vue.js Quiz",
   ogDescription: "Test your Vue.js knowledge with this interactive quiz!",
 });
-
-export type SelectedOption = {
-  id: null | string;
-  questionId: string;
-};
 
 const steps = [
   {
@@ -149,24 +157,16 @@ const steps = [
   },
 ];
 
-const activeStep = ref(1);
-const { quiz } = useQuiz();
-const { selectedTopics, availableTopics } = useFilters();
-const filteredQuiz = computed(() => {
-  return quiz.value?.filter((q) => {
-    if (selectedTopics.value.length === 0) {
-      return availableTopics.value.includes(q.topic);
-    } else {
-      return selectedTopics.value.includes(q.topic);
-    }
-  });
+const activeStep = useRouteQuery<number>("step", 1, {
+  transform: Number,
 });
+
+const { mode, filteredQuiz } = useFilters();
 
 const showAnswer = ref(false);
 const selectedOptions = ref<SelectedOption[]>([]);
 
 const onSelectOption = (payload: SelectedOption) => {
-  console.log("Selected Option:", payload);
   const existingIndex = selectedOptions.value.findIndex(
     (opt) => opt.questionId === payload.questionId,
   );
@@ -174,14 +174,7 @@ const onSelectOption = (payload: SelectedOption) => {
     selectedOptions.value[existingIndex] = payload;
     return;
   }
-  selectedOptions.value.push(payload);
-};
 
-const getSelectedOption = (questionId: string) => {
-  return (
-    selectedOptions.value.find(
-      (opt) => opt.questionId === questionId.toString(),
-    ) || { questionId: questionId.toString(), id: null }
-  );
+  selectedOptions.value = [...selectedOptions.value, payload];
 };
 </script>

@@ -2,6 +2,7 @@ import { useRouteQuery } from "@vueuse/router";
 
 export const useFilters = () => {
   const { quiz, topics: allTopics } = useQuiz();
+
   const routeQueryOptions = {
     route: useRoute(),
     router: useRouter(),
@@ -72,6 +73,18 @@ export const useFilters = () => {
     });
   });
 
+  const filteredQuiz = computed(() => {
+    return (
+      quiz.value?.filter((q) => {
+        if (selectedTopics.value.length === 0) {
+          return availableTopics.value.includes(q.topic);
+        } else {
+          return selectedTopics.value.includes(q.topic);
+        }
+      }) ?? []
+    );
+  });
+
   const toggleFilter = (filterArray: Ref<string[]>, filterValue: string) => {
     const index = filterArray.value.indexOf(filterValue);
     if (index > -1) {
@@ -115,5 +128,6 @@ export const useFilters = () => {
     availableTopics,
     updateFilters,
     clearFilters,
+    filteredQuiz,
   };
 };

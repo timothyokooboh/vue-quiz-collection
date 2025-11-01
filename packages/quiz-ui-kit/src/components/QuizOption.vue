@@ -63,6 +63,11 @@ import {
 } from "@/injection-keys";
 import { Check, X } from "lucide-vue-next";
 
+export type SelectedOption = {
+  id: null | string;
+  questionId: string;
+};
+
 export type QuizOptionProps = {
   option: { id: string; option: string };
   theme?: {
@@ -114,14 +119,14 @@ const quizOptionStatus = computed<"default" | "selected" | "success" | "error">(
     if (
       showAnswer?.value &&
       props.option.id === selectedOptionId?.value &&
-      props.option.id === correctOptionId
+      props.option.id === correctOptionId?.value
     ) {
       return "success";
     }
     if (
       showAnswer?.value &&
       props.option.id === selectedOptionId?.value &&
-      props.option.id !== correctOptionId
+      props.option.id !== correctOptionId?.value
     ) {
       return "error";
     }

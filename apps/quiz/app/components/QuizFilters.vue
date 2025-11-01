@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 const { categories, difficulties } = useQuiz();
 const {
@@ -11,6 +12,7 @@ const {
   availableTopics,
   updateFilters,
   clearFilters,
+  filteredQuiz,
 } = useFilters();
 </script>
 
@@ -77,7 +79,7 @@ const {
       </TransitionGroup>
     </section>
 
-    <section>
+    <section class="mb-5">
       <h2 class="mb-2 text-sm font-bold">Mode</h2>
       <div
         class="mb-2 flex items-center space-x-2"
@@ -97,6 +99,11 @@ const {
             : "Complete all questions, then review your score and detailed answers."
         }}
       </p>
+    </section>
+
+    <section class="border-t pt-5">
+      <h2 class="mb-2 text-sm font-bold">Total questions</h2>
+      <p class="text-2xl font-bold md:text-3xl">{{ filteredQuiz.length }}</p>
     </section>
   </div>
 </template>

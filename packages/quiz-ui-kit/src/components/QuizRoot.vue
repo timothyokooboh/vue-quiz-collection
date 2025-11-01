@@ -5,9 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide } from "vue";
+import { ref, computed, provide } from "vue";
 import { Card } from "@/components/ui/card";
-import type { SelectedOption } from "@/App.vue";
+import type { SelectedOption } from "@/components/QuizOption.vue";
 import {
   quizRootStatusKey,
   onSelectOptionKey,
@@ -21,7 +21,7 @@ export type QuizRootProps = {
   questionId: string;
   correctOptionId: string;
   totalQuestions: number;
-  selectedOption: SelectedOption;
+  //selectedOption: SelectedOption;
   showAnswer: boolean;
 };
 
@@ -30,18 +30,24 @@ const emit = defineEmits<{
   (e: "select:option", payload: SelectedOption): void;
 }>();
 
+const selectedOption = ref<SelectedOption | null>(null);
+
 const quizRootStatus = computed<"default" | "success" | "error">(() => {
   if (!props.showAnswer) return "default";
-  return props.selectedOption.id === props.correctOptionId
+  return selectedOption.value?.id === props.correctOptionId
     ? "success"
     : "error";
 });
 
+console.log("rerender");
+
 const onSelectOption = (optionId: string) => {
-  emit("select:option", {
+  selectedOption.value = {
     questionId: props.questionId,
     id: optionId,
-  });
+  };
+
+  emit("select:option", selectedOption.value);
 };
 
 provide(quizRootStatusKey, quizRootStatus);
@@ -52,7 +58,7 @@ provide(
 );
 provide(
   selectedOptionIdKey,
-  computed(() => props.selectedOption?.id),
+  computed(() => selectedOption.value?.id ?? null),
 );
 provide(
   showAnswerKey,
