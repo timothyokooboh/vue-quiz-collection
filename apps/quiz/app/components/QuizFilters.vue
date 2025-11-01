@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import gsap from "gsap";
 
 const { categories, difficulties } = useQuiz();
 const {
@@ -14,6 +15,19 @@ const {
   clearFilters,
   filteredQuiz,
 } = useFilters();
+
+const numberOfQuestions = ref(0);
+
+watchEffect(() => {
+  gsap.to(numberOfQuestions, {
+    value: filteredQuiz.value.length,
+    duration: 2,
+    ease: "power2.out",
+    onUpdate: () => {
+      numberOfQuestions.value = Math.floor(numberOfQuestions.value);
+    },
+  });
+});
 </script>
 
 <template>
@@ -103,7 +117,7 @@ const {
 
     <section class="border-t pt-5">
       <h2 class="mb-2 text-sm font-bold">Total questions</h2>
-      <p class="text-2xl font-bold md:text-3xl">{{ filteredQuiz.length }}</p>
+      <p class="text-2xl font-bold md:text-3xl">{{ numberOfQuestions }}</p>
     </section>
   </div>
 </template>
