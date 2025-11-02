@@ -102,11 +102,19 @@
               </div>
             </template>
           </QuizFeedback>
+
+          <p
+            v-if="showValidationMessage(question._id)"
+            ref="validationMessage"
+            class="text-sm text-red-500"
+          >
+            Please provide an answer
+          </p>
         </QuizBody>
       </QuizRoot>
 
       <div v-if="mode === 'quiz'" class="flex justify-end">
-        <Button @click="showAnswer = true">Submit</Button>
+        <Button @click="submitQuiz">Submit</Button>
       </div>
     </div>
   </div>
@@ -120,9 +128,7 @@ import {
   QuizOption,
   QuizFeedback,
 } from "@vqc/quiz-ui-kit";
-
 import { Button } from "@/components/ui/button";
-
 import {
   Stepper,
   StepperItem,
@@ -137,13 +143,6 @@ export type SelectedOption = {
   questionId: string;
 };
 
-useSeoMeta({
-  title: "Vue.js Quiz",
-  description: "Test your Vue.js knowledge with this interactive quiz!",
-  ogTitle: "Vue.js Quiz",
-  ogDescription: "Test your Vue.js knowledge with this interactive quiz!",
-});
-
 const steps = [
   {
     step: 1,
@@ -156,15 +155,28 @@ const steps = [
     description: "Start answering the questions",
   },
 ];
+const selectedOptions = ref<SelectedOption[]>([]);
 
+const validationMessageRef = useTemplateRef("validationMessage");
+useSeoMeta({
+  title: "Vue.js Quiz",
+  description: "Test your Vue.js knowledge with this interactive quiz!",
+  ogTitle: "Vue.js Quiz",
+  ogDescription: "Test your Vue.js knowledge with this interactive quiz!",
+});
+const { mode, filteredQuiz } = useFilters();
+const { showAnswer, showValidationMessage, submitQuiz, isInvalidSubmission } =
+  useSubmission(validationMessageRef, selectedOptions);
+// sync active step with URL
 const activeStep = useRouteQuery<number>("step", 1, {
   transform: Number,
 });
 
-const { mode, filteredQuiz } = useFilters();
-
-const showAnswer = ref(false);
-const selectedOptions = ref<SelectedOption[]>([]);
+watch(activeStep, () => {
+  selectedOptions.value = [];
+  showAnswer.value = false;
+  isInvalidSubmission.value = false;
+});
 
 const onSelectOption = (payload: SelectedOption) => {
   const existingIndex = selectedOptions.value.findIndex(
