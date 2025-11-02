@@ -65,6 +65,10 @@ provide(
   correctOptionIdKey,
   computed(() => props.correctOptionId),
 );
+
+defineExpose({
+  selectedOption,
+});
 </script>
 
 <style scoped></style>

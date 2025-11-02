@@ -41,6 +41,9 @@ importers:
 
   apps/quiz:
     dependencies:
+      '@neoconfetti/vue':
+        specifier: ^2.2.1
+        version: 2.2.1
       '@nuxt/content':
         specifier: 3.7.1
         version: 3.7.1(better-sqlite3@12.4.1)(magicast@0.3.5)
@@ -810,6 +813,9 @@ packages:
 
   '@napi-rs/wasm-runtime@1.0.7':
     resolution: {integrity: sha512-SeDnOO0Tk7Okiq6DbXmmBODgOAb9dp9gjlphokTUxmt8U3liIP1ZsozBahH69j/RJv+Rfs6IwUKHTgQYJ/HBAw==}
+
+  '@neoconfetti/vue@2.2.1':
+    resolution: {integrity: sha512-GXe5XoHlMK8VIxmxKuAgF9QQwRoDLmtiwVhONA9rzF+zOLGfOVLxo4OEDZqU9F0gJkB7U23BLlGJ3ouOb+kguw==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -7163,6 +7169,8 @@ snapshots:
       '@emnapi/runtime': 1.5.0
       '@tybys/wasm-util': 0.10.1
     optional: true
+
+  '@neoconfetti/vue@2.2.1': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:

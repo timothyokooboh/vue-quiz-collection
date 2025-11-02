@@ -58,64 +58,88 @@
           Back to Filters
         </Button>
 
-        <QuizRoot
-          v-for="(question, index) in filteredQuiz"
-          :key="question._id"
-          :question-id="question._id"
-          :correct-option-id="question.correctOptionId"
-          :total-questions="filteredQuiz?.length ?? 0"
-          :show-result="showResult"
-          @select:option="onSelectOption"
-        >
-          <QuizHeader
-            :tags="[question.difficulty, question.category, question.topic]"
-            :question-number="index + 1"
+        <section v-if="showResult" class="flex flex-col gap-2">
+          <div
+            v-if="showResult"
+            v-confetti="{
+              particleCount: 500,
+              force: 0.8,
+              particleSize: 15,
+              duration: 5000,
+              stageWidth: 2600,
+            }"
+          />
+          <h2 class="text-xl font-bold md:text-2xl">Quiz Complete!</h2>
+          <p class="text-2xl font-bold text-green-500 md:text-3xl">0%</p>
+          <p class="text-muted-foreground text-sm">
+            You got 5 out of 50 questions correct
+          </p>
+          <Button variant="outline" class="w-fit" @click="restartQuiz"
+            >Restart</Button
           >
-            <ContentRenderer
-              :value="question.meta"
-              :data="{ questionType: 'question' }"
-            />
-          </QuizHeader>
+        </section>
 
-          <QuizBody>
-            <QuizOption
-              v-for="option in question.options"
-              :key="option.id"
-              :option="option"
-            />
-
-            <QuizFeedback>
-              <template #explanation>
-                <div>
-                  <ContentRenderer
-                    :value="question.meta"
-                    :data="{ explanationType: 'explanation' }"
-                  />
-
-                  <a
-                    v-if="question.referenceLink"
-                    :href="question.referenceLink"
-                    target="_blank"
-                    class="mt-3 flex w-fit items-center gap-2 text-sm text-cyan-700"
-                    >Learn more in official docs
-                    <Icon name="lucide:external-link" />
-                  </a>
-                </div>
-              </template>
-            </QuizFeedback>
-
-            <p
-              v-if="showValidationMessage(question._id)"
-              ref="validationMessage"
-              class="text-sm text-red-500"
+        <div :key="resetKey">
+          <QuizRoot
+            v-for="(question, index) in filteredQuiz"
+            ref="quizRoot"
+            :key="question._id"
+            :question-id="question._id"
+            :correct-option-id="question.correctOptionId"
+            :total-questions="filteredQuiz?.length ?? 0"
+            :show-result="showResult"
+            @select:option="onSelectOption"
+          >
+            <QuizHeader
+              :tags="[question.difficulty, question.category, question.topic]"
+              :question-number="index + 1"
             >
-              Please provide an answer
-            </p>
-          </QuizBody>
-        </QuizRoot>
+              <ContentRenderer
+                :value="question.meta"
+                :data="{ questionType: 'question' }"
+              />
+            </QuizHeader>
+
+            <QuizBody>
+              <QuizOption
+                v-for="option in question.options"
+                :key="option.id"
+                :option="option"
+              />
+
+              <QuizFeedback>
+                <template #explanation>
+                  <div>
+                    <ContentRenderer
+                      :value="question.meta"
+                      :data="{ explanationType: 'explanation' }"
+                    />
+
+                    <a
+                      v-if="question.referenceLink"
+                      :href="question.referenceLink"
+                      target="_blank"
+                      class="mt-3 flex w-fit items-center gap-2 text-sm text-cyan-700"
+                      >Learn more in official docs
+                      <Icon name="lucide:external-link" />
+                    </a>
+                  </div>
+                </template>
+              </QuizFeedback>
+
+              <p
+                v-if="showValidationMessage(question._id)"
+                ref="validationMessage"
+                class="text-sm text-red-500"
+              >
+                Please provide an answer
+              </p>
+            </QuizBody>
+          </QuizRoot>
+        </div>
 
         <div v-if="mode === 'quiz'" class="flex justify-end">
-          <Button @click="submitQuiz">Submit</Button>
+          <Button :disabled="showResult" @click="submitQuiz">Submit</Button>
         </div>
       </div>
     </AppTransition>
@@ -139,6 +163,7 @@ import {
   StepperTrigger,
 } from "@/components/ui/stepper";
 import { useRouteQuery } from "@vueuse/router";
+import { vConfetti } from "@neoconfetti/vue";
 
 export type SelectedOption = {
   id: null | string;
@@ -190,5 +215,14 @@ const onSelectOption = (payload: SelectedOption) => {
   }
 
   selectedOptions.value = [...selectedOptions.value, payload];
+};
+
+const resetKey = ref(0);
+
+const restartQuiz = () => {
+  selectedOptions.value = [];
+  showResult.value = false;
+  isInvalidSubmission.value = false;
+  resetKey.value++;
 };
 </script>

@@ -11,6 +11,7 @@
     "uuid": "node -e \"console.log(crypto.randomUUID())\""
   },
   "dependencies": {
+    "@neoconfetti/vue": "^2.2.1",
     "@nuxt/content": "3.7.1",
     "@nuxt/eslint": "1.9.0",
     "@nuxt/fonts": "0.11.4",

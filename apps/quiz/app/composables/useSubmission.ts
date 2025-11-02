@@ -36,6 +36,11 @@ export const useSubmission = (
     }
 
     showResult.value = true;
+    await nextTick();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return {

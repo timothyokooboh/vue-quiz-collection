@@ -123,7 +123,9 @@ watchEffect(() => {
 
     <section class="border-t pt-5">
       <h2 class="mb-2 text-sm font-bold">Total questions</h2>
-      <p class="text-2xl font-bold md:text-3xl">{{ numberOfQuestions }}</p>
+      <p class="text-2xl font-bold md:text-3xl">
+        {{ numberOfQuestions }}
+      </p>
     </section>
   </div>
 </template>
