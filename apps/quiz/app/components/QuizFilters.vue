@@ -106,13 +106,19 @@ watchEffect(() => {
         />
         <Label for="quiz-mode" class="text-sm">Quiz Mode</Label>
       </div>
-      <p id="mode-description" class="text-muted-foreground text-xs">
-        {{
-          mode === "study"
-            ? "Learn as you go. Get feedback and explanations after each question."
-            : "Complete all questions, then review your score and detailed answers."
-        }}
-      </p>
+
+      <AppTransition distance="10px">
+        <p
+          v-if="mode === 'study'"
+          id="mode-description"
+          class="text-muted-foreground text-xs"
+        >
+          Learn as you go. Get feedback and explanations after each question.
+        </p>
+        <p v-else id="mode-description" class="text-muted-foreground text-xs">
+          Complete all questions, then review your score and detailed answers.
+        </p>
+      </AppTransition>
     </section>
 
     <section class="border-t pt-5">

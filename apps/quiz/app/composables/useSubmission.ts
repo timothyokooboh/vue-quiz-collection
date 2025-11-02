@@ -8,10 +8,10 @@ export const useSubmission = (
   selectedOptions: Ref<SelectedOption[]>,
 ) => {
   const { filteredQuiz } = useFilters();
-  const showAnswer = ref(false);
+  const showResult = ref(false);
   const isInvalidSubmission = ref(false);
 
-  const scrollToFirstInvalidQuestion = () => {
+  const scrollToFirstQuestionWithoutAnswer = () => {
     if (!validationMessageRef.value) return;
     validationMessageRef.value[0]?.scrollIntoView({
       behavior: "smooth",
@@ -20,28 +20,28 @@ export const useSubmission = (
   };
 
   const showValidationMessage = (questionId: string) => {
-    const hasNoSelectedOption =
+    const hasNoAnswer =
       selectedOptions.value.find((s) => s.questionId === questionId) ===
       undefined;
 
-    return isInvalidSubmission.value && hasNoSelectedOption;
+    return isInvalidSubmission.value && hasNoAnswer;
   };
 
   const submitQuiz = async () => {
     if (selectedOptions.value.length !== filteredQuiz.value.length) {
       isInvalidSubmission.value = true;
       await nextTick();
-      scrollToFirstInvalidQuestion();
+      scrollToFirstQuestionWithoutAnswer();
       return;
     }
 
-    showAnswer.value = true;
+    showResult.value = true;
   };
 
   return {
     submitQuiz,
     isInvalidSubmission,
-    showAnswer,
+    showResult,
     showValidationMessage,
   };
 };

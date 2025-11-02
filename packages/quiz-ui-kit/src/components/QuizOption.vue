@@ -2,12 +2,12 @@
   <button
     class="quiz-option flex w-full items-center justify-between gap-2 rounded-md border px-3 py-2 text-left duration-300 hover:border-[#9fddc1]"
     :class="{
-      'cursor-default': showAnswer,
-      'cursor-pointer': !showAnswer,
+      'cursor-default': showResult,
+      'cursor-pointer': !showResult,
     }"
     :data-quiz-option-status="quizOptionStatus"
     :data-quiz-root-status="quizRootStatus"
-    :disabled="showAnswer"
+    :disabled="showResult"
     @click="handleSelection"
   >
     <div class="flex items-start gap-3">
@@ -20,7 +20,7 @@
     </div>
 
     <div
-      v-if="showAnswer && option.id === correctOptionId && quizOptionStatus"
+      v-if="showResult && option.id === correctOptionId && quizOptionStatus"
       class="shrink-0"
     >
       <slot name="successIcon">
@@ -37,7 +37,7 @@
     </div>
 
     <div
-      v-if="showAnswer && quizOptionStatus === 'error'"
+      v-if="showResult && quizOptionStatus === 'error'"
       name="errorIcon"
       class="shrink-0"
     >
@@ -56,7 +56,7 @@
 import { computed, inject } from "vue";
 import {
   selectedOptionIdKey,
-  showAnswerKey,
+  showResultKey,
   onSelectOptionKey,
   correctOptionIdKey,
   quizRootStatusKey,
@@ -84,7 +84,7 @@ export type QuizOptionProps = {
 const props = defineProps<QuizOptionProps>();
 
 const selectedOptionId = inject(selectedOptionIdKey);
-const showAnswer = inject(showAnswerKey);
+const showResult = inject(showResultKey);
 const quizRootStatus = inject(quizRootStatusKey);
 const correctOptionId = inject(correctOptionIdKey);
 const onSelectOption = inject(onSelectOptionKey);
@@ -113,18 +113,18 @@ const errorBgColor = computed(
 
 const quizOptionStatus = computed<"default" | "selected" | "success" | "error">(
   () => {
-    if (!showAnswer?.value && props.option.id === selectedOptionId?.value) {
+    if (!showResult?.value && props.option.id === selectedOptionId?.value) {
       return "selected";
     }
     if (
-      showAnswer?.value &&
+      showResult?.value &&
       props.option.id === selectedOptionId?.value &&
       props.option.id === correctOptionId?.value
     ) {
       return "success";
     }
     if (
-      showAnswer?.value &&
+      showResult?.value &&
       props.option.id === selectedOptionId?.value &&
       props.option.id !== correctOptionId?.value
     ) {
@@ -135,7 +135,7 @@ const quizOptionStatus = computed<"default" | "selected" | "success" | "error">(
 );
 
 const handleSelection = () => {
-  if (showAnswer?.value) return;
+  if (showResult?.value) return;
   if (onSelectOption) onSelectOption(props.option.id);
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div role="region" aria-live="assertive" aria-atomic="true">
     <div
-      v-if="showAnswer"
+      v-if="showResult"
       class="quiz-feedback rounded-md border p-3"
       :data-quiz-root-status="quizRootStatus"
     >
@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import { computed, inject } from "vue";
-import { quizRootStatusKey, showAnswerKey } from "@/injection-keys";
+import { quizRootStatusKey, showResultKey } from "@/injection-keys";
 import { Check, X } from "lucide-vue-next";
 
 export type QuizFeedbackProps = {
@@ -65,7 +65,7 @@ export type QuizFeedbackProps = {
 const props = defineProps<QuizFeedbackProps>();
 
 const quizRootStatus = inject(quizRootStatusKey);
-const showAnswer = inject(showAnswerKey);
+const showResult = inject(showResultKey);
 
 const successBgColor = computed(() => {
   return props.theme?.successBgColor ?? "var(--color-green-50)";

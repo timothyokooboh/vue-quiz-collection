@@ -13,7 +13,7 @@ import {
   onSelectOptionKey,
   totalQuestionsKey,
   selectedOptionIdKey,
-  showAnswerKey,
+  showResultKey,
   correctOptionIdKey,
 } from "@/injection-keys";
 
@@ -21,8 +21,7 @@ export type QuizRootProps = {
   questionId: string;
   correctOptionId: string;
   totalQuestions: number;
-  //selectedOption: SelectedOption;
-  showAnswer: boolean;
+  showResult: boolean;
 };
 
 const props = defineProps<QuizRootProps>();
@@ -33,13 +32,11 @@ const emit = defineEmits<{
 const selectedOption = ref<SelectedOption | null>(null);
 
 const quizRootStatus = computed<"default" | "success" | "error">(() => {
-  if (!props.showAnswer) return "default";
+  if (!props.showResult) return "default";
   return selectedOption.value?.id === props.correctOptionId
     ? "success"
     : "error";
 });
-
-console.log("rerender");
 
 const onSelectOption = (optionId: string) => {
   selectedOption.value = {
@@ -61,8 +58,8 @@ provide(
   computed(() => selectedOption.value?.id ?? null),
 );
 provide(
-  showAnswerKey,
-  computed(() => props.showAnswer),
+  showResultKey,
+  computed(() => props.showResult),
 );
 provide(
   correctOptionIdKey,

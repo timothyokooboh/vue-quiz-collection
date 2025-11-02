@@ -44,79 +44,81 @@
       </StepperItem>
     </Stepper>
 
-    <template v-if="activeStep === 1">
-      <QuizFilters />
-      <div class="mt-3 flex justify-end">
-        <Button @click="activeStep = 2">Start Quiz</Button>
+    <AppTransition :duration="0.3" :from="activeStep === 1 ? 'left' : 'right'">
+      <div v-if="activeStep === 1">
+        <QuizFilters />
+        <div class="mt-3 flex justify-end">
+          <Button @click="activeStep = 2">Start Quiz</Button>
+        </div>
       </div>
-    </template>
 
-    <div v-else class="flex flex-col gap-4">
-      <Button variant="outline" class="w-fit" @click="activeStep = 1">
-        <Icon name="lucide:arrow-left" />
-        Back to Filters
-      </Button>
+      <div v-else class="flex flex-col gap-4">
+        <Button variant="outline" class="w-fit" @click="activeStep = 1">
+          <Icon name="lucide:arrow-left" />
+          Back to Filters
+        </Button>
 
-      <QuizRoot
-        v-for="(question, index) in filteredQuiz"
-        :key="question._id"
-        :question-id="question._id"
-        :correct-option-id="question.correctOptionId"
-        :total-questions="filteredQuiz?.length ?? 0"
-        :show-answer="showAnswer"
-        @select:option="onSelectOption"
-      >
-        <QuizHeader
-          :tags="[question.difficulty, question.category, question.topic]"
-          :question-number="index + 1"
+        <QuizRoot
+          v-for="(question, index) in filteredQuiz"
+          :key="question._id"
+          :question-id="question._id"
+          :correct-option-id="question.correctOptionId"
+          :total-questions="filteredQuiz?.length ?? 0"
+          :show-result="showResult"
+          @select:option="onSelectOption"
         >
-          <ContentRenderer
-            :value="question.meta"
-            :data="{ questionType: 'question' }"
-          />
-        </QuizHeader>
-
-        <QuizBody>
-          <QuizOption
-            v-for="option in question.options"
-            :key="option.id"
-            :option="option"
-          />
-
-          <QuizFeedback>
-            <template #explanation>
-              <div>
-                <ContentRenderer
-                  :value="question.meta"
-                  :data="{ explanationType: 'explanation' }"
-                />
-
-                <a
-                  v-if="question.referenceLink"
-                  :href="question.referenceLink"
-                  target="_blank"
-                  class="mt-3 flex w-fit items-center gap-2 text-sm text-cyan-700"
-                  >Learn more in official docs
-                  <Icon name="lucide:external-link" />
-                </a>
-              </div>
-            </template>
-          </QuizFeedback>
-
-          <p
-            v-if="showValidationMessage(question._id)"
-            ref="validationMessage"
-            class="text-sm text-red-500"
+          <QuizHeader
+            :tags="[question.difficulty, question.category, question.topic]"
+            :question-number="index + 1"
           >
-            Please provide an answer
-          </p>
-        </QuizBody>
-      </QuizRoot>
+            <ContentRenderer
+              :value="question.meta"
+              :data="{ questionType: 'question' }"
+            />
+          </QuizHeader>
 
-      <div v-if="mode === 'quiz'" class="flex justify-end">
-        <Button @click="submitQuiz">Submit</Button>
+          <QuizBody>
+            <QuizOption
+              v-for="option in question.options"
+              :key="option.id"
+              :option="option"
+            />
+
+            <QuizFeedback>
+              <template #explanation>
+                <div>
+                  <ContentRenderer
+                    :value="question.meta"
+                    :data="{ explanationType: 'explanation' }"
+                  />
+
+                  <a
+                    v-if="question.referenceLink"
+                    :href="question.referenceLink"
+                    target="_blank"
+                    class="mt-3 flex w-fit items-center gap-2 text-sm text-cyan-700"
+                    >Learn more in official docs
+                    <Icon name="lucide:external-link" />
+                  </a>
+                </div>
+              </template>
+            </QuizFeedback>
+
+            <p
+              v-if="showValidationMessage(question._id)"
+              ref="validationMessage"
+              class="text-sm text-red-500"
+            >
+              Please provide an answer
+            </p>
+          </QuizBody>
+        </QuizRoot>
+
+        <div v-if="mode === 'quiz'" class="flex justify-end">
+          <Button @click="submitQuiz">Submit</Button>
+        </div>
       </div>
-    </div>
+    </AppTransition>
   </div>
 </template>
 
@@ -165,7 +167,7 @@ useSeoMeta({
   ogDescription: "Test your Vue.js knowledge with this interactive quiz!",
 });
 const { mode, filteredQuiz } = useFilters();
-const { showAnswer, showValidationMessage, submitQuiz, isInvalidSubmission } =
+const { showResult, showValidationMessage, submitQuiz, isInvalidSubmission } =
   useSubmission(validationMessageRef, selectedOptions);
 // sync active step with URL
 const activeStep = useRouteQuery<number>("step", 1, {
@@ -174,7 +176,7 @@ const activeStep = useRouteQuery<number>("step", 1, {
 
 watch(activeStep, () => {
   selectedOptions.value = [];
-  showAnswer.value = false;
+  showResult.value = false;
   isInvalidSubmission.value = false;
 });
 

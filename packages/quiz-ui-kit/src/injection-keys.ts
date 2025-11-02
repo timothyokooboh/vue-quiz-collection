@@ -15,8 +15,8 @@ export const selectedOptionIdKey: InjectionKey<
   ComputedRef<SelectedOption["id"]>
 > = Symbol("selectedOptionId");
 
-export const showAnswerKey: InjectionKey<ComputedRef<boolean>> =
-  Symbol("showAnswer");
+export const showResultKey: InjectionKey<ComputedRef<boolean>> =
+  Symbol("showResult");
 
 export const correctOptionIdKey: InjectionKey<ComputedRef<string>> =
   Symbol("correctOptionId");
