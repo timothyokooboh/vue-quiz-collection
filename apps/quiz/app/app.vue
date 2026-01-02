@@ -1,6 +1,10 @@
 <template>
   <div>
     <NuxtRouteAnnouncer />
-    <NuxtPage />
+    <TheHeader />
+
+    <v-box mt="60px">
+      <NuxtPage />
+    </v-box>
   </div>
 </template>

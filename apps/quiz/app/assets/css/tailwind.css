@@ -130,7 +130,7 @@
 
   pre {
     background-color: var(--muted);
-    padding: 0.5rem 1rem;
+    padding: 2rem 1rem;
     border-radius: var(--radius-md);
     border: 1px solid var(--border);
     overflow-x: auto;

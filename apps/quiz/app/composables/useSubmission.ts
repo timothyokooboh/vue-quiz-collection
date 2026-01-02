@@ -11,6 +11,21 @@ export const useSubmission = (
   const showResult = ref(false);
   const isInvalidSubmission = ref(false);
 
+  const totalCorrectAnswers = computed(
+    () =>
+      selectedOptions.value.filter(
+        (s) => s.selectedOptionId === s.correctOptionId,
+      ).length,
+  );
+
+  const percentageScore = computed(() => {
+    return parseInt(
+      ((totalCorrectAnswers.value / filteredQuiz.value.length) * 100).toFixed(
+        2,
+      ),
+    );
+  });
+
   const scrollToFirstQuestionWithoutAnswer = () => {
     if (!validationMessageRef.value) return;
     validationMessageRef.value[0]?.scrollIntoView({
@@ -48,5 +63,7 @@ export const useSubmission = (
     isInvalidSubmission,
     showResult,
     showValidationMessage,
+    totalCorrectAnswers,
+    percentageScore,
   };
 };

@@ -5,7 +5,7 @@
         >Question {{ currentQuestionIndex + 1 }} of {{ totalQuestions }}</span
       >
 
-      <span>{{ progressPercentage }}% Complete</span>
+      <span>{{ progressPercentage.toFixed(0) }}% Complete</span>
     </div>
 
     <QuizProgress

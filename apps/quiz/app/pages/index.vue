@@ -1,5 +1,10 @@
 <template>
-  <div>
-    <h1 class="text-red-500">Landing page</h1>
-  </div>
+  <main>
+    <HeroSection />
+    <TipOfTheDay />
+    <ChoosePath />
+    <FaqSection />
+    <CtaSection />
+    <FooterSection />
+  </main>
 </template>

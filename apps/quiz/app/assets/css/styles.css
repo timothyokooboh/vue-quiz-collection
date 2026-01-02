@@ -1,0 +1,8 @@
+body {
+  font-family: "Space Grotesk";
+}
+
+*:focus-visible {
+  outline: 2px solid pink;
+  outline-offset: 4px;
+}

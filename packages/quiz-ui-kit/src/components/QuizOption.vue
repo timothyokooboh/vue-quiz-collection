@@ -64,7 +64,7 @@ import {
 import { Check, X } from "lucide-vue-next";
 
 export type SelectedOption = {
-  id: null | string;
+  selectedOptionId: null | string;
   questionId: string;
 };
 

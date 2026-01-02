@@ -26,14 +26,19 @@ export type QuizRootProps = {
 
 const props = defineProps<QuizRootProps>();
 const emit = defineEmits<{
-  (e: "select:option", payload: SelectedOption): void;
+  (
+    e: "select:option",
+    payload: SelectedOption & { correctOptionId: string },
+  ): void;
 }>();
 
-const selectedOption = ref<SelectedOption | null>(null);
+const selectedOption = ref<
+  (SelectedOption & { correctOptionId: string }) | null
+>(null);
 
 const quizRootStatus = computed<"default" | "success" | "error">(() => {
   if (!props.showResult) return "default";
-  return selectedOption.value?.id === props.correctOptionId
+  return selectedOption.value?.selectedOptionId === props.correctOptionId
     ? "success"
     : "error";
 });
@@ -41,7 +46,8 @@ const quizRootStatus = computed<"default" | "success" | "error">(() => {
 const onSelectOption = (optionId: string) => {
   selectedOption.value = {
     questionId: props.questionId,
-    id: optionId,
+    selectedOptionId: optionId,
+    correctOptionId: props.correctOptionId,
   };
 
   emit("select:option", selectedOption.value);
@@ -55,7 +61,7 @@ provide(
 );
 provide(
   selectedOptionIdKey,
-  computed(() => selectedOption.value?.id ?? null),
+  computed(() => selectedOption.value?.selectedOptionId ?? null),
 );
 provide(
   showResultKey,
