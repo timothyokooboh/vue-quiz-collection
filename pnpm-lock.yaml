@@ -66,11 +66,11 @@ importers:
         specifier: ^4.1.14
         version: 4.1.14(vite@7.1.10(@types/node@24.8.1)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))
       '@veebox/core':
-        specifier: ^1.0.4
-        version: 1.0.4
+        specifier: ^1.1.1
+        version: 1.1.1
       '@veebox/vue':
-        specifier: ^1.0.4
-        version: 1.0.4(vue@3.5.22(typescript@5.9.3))
+        specifier: ^1.1.1
+        version: 1.1.1(vue@3.5.22(typescript@5.9.3))
       '@vqc/quiz-ui-kit':
         specifier: workspace:^
         version: link:../../packages/quiz-ui-kit
@@ -2087,12 +2087,12 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@veebox/core@1.0.4':
-    resolution: {integrity: sha512-05dvUBuoq5nk1E7xij2xbVW3KJvx29rNTmvVHVP+KBB60lpacLKbJjXmXYbczEPLo2wgNGTXzvbBt82xwc5T+w==}
+  '@veebox/core@1.1.1':
+    resolution: {integrity: sha512-fqF4DCWDJwrxWWVabATJqwurLXaWJZav74Ml2+t95JOKvokzVMdn3ig8qYU+Fx/DuQvWCSMO3Wy174x8FzrHGg==}
     hasBin: true
 
-  '@veebox/vue@1.0.4':
-    resolution: {integrity: sha512-RV2uckwtCVeiJgA6HAPSaNDFRwvnWxXXeNgBxSJt3TyP/Qu6DsUY+XEd0/v8WMSxMAnAMbbHYmSDOQQDHOzzJg==}
+  '@veebox/vue@1.1.1':
+    resolution: {integrity: sha512-zkvz9GOjVmOt48AQ7urJ760W6SrFMOftHSEVsBze5/ian7jA+aXObX+yCIj7FGgOEbyaocSMp8a1UrYdZ7VtCw==}
     peerDependencies:
       vue: ^3.5.0
 
@@ -8639,15 +8639,15 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@veebox/core@1.0.4':
+  '@veebox/core@1.1.1':
     dependencies:
       fs-extra: 11.3.2
       jiti: 2.6.1
       stylis: 4.3.6
 
-  '@veebox/vue@1.0.4(vue@3.5.22(typescript@5.9.3))':
+  '@veebox/vue@1.1.1(vue@3.5.22(typescript@5.9.3))':
     dependencies:
-      '@veebox/core': 1.0.4
+      '@veebox/core': 1.1.1
       vue: 3.5.22(typescript@5.9.3)
 
   '@vercel/nft@0.30.3(rollup@4.52.5)':

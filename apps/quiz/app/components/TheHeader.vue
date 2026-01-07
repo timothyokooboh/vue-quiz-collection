@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+const route = useRoute();
+</script>
+
 <template>
   <v-box
     is="nav"
@@ -28,31 +32,9 @@
       <TradeMark />
 
       <v-box display="flex" align-items="center" gap="sp-4">
-        <v-box
-          as-child
-          bg="cl-emerald-500"
-          shadow="bs-sm"
-          radius="br-lg"
-          color="#fff"
-          fs="fs-sm"
-          fw="fw-bold"
-          display="flex"
-          align-items="center"
-          h="2.2rem"
-          px="sp-5"
-          transition="background 0.2s ease-in-out, color 0.2s ease-in-out, scale 0.2s ease-in-out"
-          :hover="{
-            bg: 'cl-primary-dark',
-          }"
-          :active="{
-            scale: 0.95,
-          }"
-          :sm="{
-            height: '2.5rem',
-          }"
-        >
+        <AppButton v-if="route.meta.showStartQuiz" as-child size="sm">
           <NuxtLink to="/quiz">Start Quiz</NuxtLink>
-        </v-box>
+        </AppButton>
 
         <v-box as-child mt="5px" color="cl-slate-400">
           <a href="#">

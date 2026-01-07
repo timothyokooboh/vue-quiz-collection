@@ -1042,6 +1042,18 @@ declare module "@veebox/core" {
  * 2.25rem
  */
   "4xl": "2.25rem";
+/**
+ * 3rem
+ */
+  "5xl": "3rem";
+/**
+ * 3.75rem
+ */
+  "6xl": "3.75rem";
+/**
+ * 4.5rem
+ */
+  "7xl": "4.5rem";
 }
 
   interface FontWeightTokensInterface {
@@ -1220,6 +1232,18 @@ declare module "@veebox/core" {
  * 0.5rem
  */
   "lg": "0.5rem";
+/**
+ * 0.75rem
+ */
+  "xl": "0.75rem";
+/**
+ * 1rem
+ */
+  "2xl": "1rem";
+/**
+ * 1.5rem
+ */
+  "3xl": "1.5rem";
 /**
  * 9999px
  */

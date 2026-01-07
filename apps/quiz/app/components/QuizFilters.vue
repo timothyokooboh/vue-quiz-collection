@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import gsap from "gsap";
+import { cn } from "~/lib/utils";
 
 const { categories, difficulties } = useQuiz();
 const {
@@ -31,26 +32,35 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="bg-background rounded-xl border p-4">
-    <div class="mb-5 flex items-center justify-between gap-2">
-      <p class="text-muted-foreground text-sm">
-        Optionally apply filters to narrow down the questions
-      </p>
-      <Button variant="ghost" class="cursor-pointer" @click="clearFilters">
-        <Icon name="lucide:x" /> Clear all</Button
-      >
-    </div>
+  <div class="bg-background flex flex-col gap-5 rounded-xl border p-4">
+    <section class="flex items-center justify-between gap-2 border-b pb-3">
+      <div>
+        <h2 class="mb-1 font-medium">Filter Questions</h2>
+        <p class="text-muted-foreground text-sm">
+          Optionally apply filters to narrow down the questions
+        </p>
+      </div>
 
-    <section class="mb-5">
-      <h2 class="mb-2 text-sm font-bold">Categories</h2>
+      <Button variant="ghost" class="cursor-pointer" @click="clearFilters">
+        <Icon name="lucide:x" /> Clear all filters
+      </Button>
+    </section>
+
+    <section>
+      <h2 class="text-muted mb-2 text-sm font-bold uppercase tracking-wider">
+        Categories
+      </h2>
       <ul class="flex gap-2">
         <li v-for="category in categories" :key="category">
           <Button
-            :variant="
-              selectedCategories.includes(category) ? 'default' : 'outline'
-            "
+            variant="outline"
             size="sm"
-            class="cursor-pointer rounded-full text-xs"
+            class="cursor-pointer rounded-full border border-[#e5e7eb] text-sm"
+            :class="
+              cn(
+                `border-[#e5e7eb], border bg-white ${selectedCategories.includes(category) && 'border-green-600 bg-green-300/10 text-green-600 hover:bg-green-300/20 hover:text-green-600'}`,
+              )
+            "
             @click="updateFilters('category', category)"
           >
             {{ category }}
@@ -59,16 +69,21 @@ watchEffect(() => {
       </ul>
     </section>
 
-    <section class="mb-5">
-      <h2 class="mb-2 text-sm font-bold">Difficulty</h2>
+    <section>
+      <h2 class="text-muted mb-2 text-sm font-bold uppercase tracking-wider">
+        Difficulty
+      </h2>
       <ul class="flex gap-2">
         <li v-for="difficulty in difficulties" :key="difficulty">
           <Button
-            :variant="
-              selectedDifficulties.includes(difficulty) ? 'default' : 'outline'
+            variant="outline"
+            class="cursor-pointer rounded-full border border-[#e5e7eb] text-sm"
+            :class="
+              cn(
+                `border-[#e5e7eb], border bg-white ${selectedDifficulties.includes(difficulty) && 'border-green-600 bg-green-300/10 text-green-600 hover:bg-green-300/20 hover:text-green-600'}`,
+              )
             "
             size="sm"
-            class="cursor-pointer rounded-full text-xs"
             @click="updateFilters('difficulty', difficulty)"
           >
             {{ difficulty }}
@@ -77,14 +92,21 @@ watchEffect(() => {
       </ul>
     </section>
 
-    <section class="mb-5">
-      <h2 class="mb-2 text-sm font-bold">Topics</h2>
+    <section>
+      <h2 class="text-muted mb-2 text-sm font-bold uppercase tracking-wider">
+        Topics
+      </h2>
       <TransitionGroup name="list" tag="ul" class="flex flex-wrap gap-2">
         <li v-for="topic in availableTopics" :key="topic">
           <Button
             :variant="selectedTopics.includes(topic) ? 'default' : 'outline'"
             size="sm"
-            class="cursor-pointer rounded-full text-xs"
+            class="cursor-pointer rounded-lg border border-[#e5e7eb] text-sm"
+            :class="
+              cn(
+                `border-[#e5e7eb], border bg-white ${selectedTopics.includes(topic) && 'border-green-600 bg-green-300/10 text-green-600 hover:bg-green-300/20 hover:text-green-600'}`,
+              )
+            "
             @click="updateFilters('topic', topic)"
           >
             {{ topic }}
@@ -93,40 +115,48 @@ watchEffect(() => {
       </TransitionGroup>
     </section>
 
-    <section class="mb-5">
-      <h2 class="mb-2 text-sm font-bold">Mode</h2>
-      <div
-        class="mb-2 flex items-center space-x-2"
-        aria-describedby="mode-description"
-      >
-        <Switch
-          id="quiz-mode"
-          :model-value="mode !== 'study'"
-          @update:model-value="updateFilters('mode', $event ? 'quiz' : 'study')"
-        />
-        <Label for="quiz-mode" class="text-sm">Quiz Mode</Label>
-      </div>
-
-      <AppTransition distance="10px">
-        <p
-          v-if="mode === 'study'"
-          id="mode-description"
-          class="text-muted-foreground text-xs"
+    <div class="flex flex-col justify-between gap-3 sm:flex-row">
+      <section>
+        <h2 class="text-muted mb-2 text-sm font-bold uppercase tracking-wider">
+          Mode
+        </h2>
+        <div
+          class="mb-2 flex items-center space-x-2"
+          aria-describedby="mode-description"
         >
-          Learn as you go. Get feedback and explanations after each question.
-        </p>
-        <p v-else id="mode-description" class="text-muted-foreground text-xs">
-          Complete all questions, then review your score and detailed answers.
-        </p>
-      </AppTransition>
-    </section>
+          <Switch
+            id="quiz-mode"
+            :model-value="mode !== 'study'"
+            @update:model-value="
+              updateFilters('mode', $event ? 'quiz' : 'study')
+            "
+          />
+          <Label for="quiz-mode" class="text-sm">Quiz Mode</Label>
+        </div>
 
-    <section class="border-t pt-5">
-      <h2 class="mb-2 text-sm font-bold">Total questions</h2>
-      <p class="text-2xl font-bold md:text-3xl">
-        {{ numberOfQuestions }}
-      </p>
-    </section>
+        <AppTransition distance="10px">
+          <p
+            v-if="mode === 'study'"
+            id="mode-description"
+            class="text-muted-foreground text-xs"
+          >
+            Learn as you go. Get feedback and explanations after each question.
+          </p>
+          <p v-else id="mode-description" class="text-muted-foreground text-xs">
+            Complete all questions, then review your score and detailed answers.
+          </p>
+        </AppTransition>
+      </section>
+
+      <section
+        class="w-full rounded-lg border border-dashed px-4 py-4 sm:max-w-[300px]"
+      >
+        <h2 class="text-muted mb-2 text-sm font-bold">Total questions found</h2>
+        <p class="text-2xl font-bold md:text-3xl">
+          {{ numberOfQuestions }}
+        </p>
+      </section>
+    </div>
   </div>
 </template>
 

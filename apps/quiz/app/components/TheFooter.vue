@@ -167,7 +167,9 @@
                 }"
                 href="#"
               >
-                <NuxtLink to="/quiz"> Privacy Policy </NuxtLink>
+                <NuxtLink to="/privacy-policy#introduction">
+                  Privacy Policy
+                </NuxtLink>
               </v-box>
             </v-box>
 
@@ -180,7 +182,7 @@
                 }"
                 href="#"
               >
-                <NuxtLink to="/quiz?mode=study"> Terms of Service </NuxtLink>
+                <NuxtLink to="/terms-of-service"> Terms of Service </NuxtLink>
               </v-box>
             </v-box>
           </v-box>

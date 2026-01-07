@@ -139,36 +139,14 @@ const pulse = keyframes({
           width: 'auto',
         }"
       >
-        <v-box
-          as-child
-          h="3rem"
-          px="sp-8"
-          radius="br-lg"
-          bg="cl-primary"
-          color="#fff"
-          fw="fw-bold"
-          fs="fs-base"
-          display="flex"
-          align-items="center"
-          justify-content="center"
-          gap="sp-2"
-          shadow="bs-sm"
-          transition="background 0.2s ease-in-out, scale 0.2s ease-in-out"
-          :hover="{
-            bg: 'cl-primary-dark',
-            scale: 1.05,
-          }"
-          :active="{
-            scale: 0.95,
-          }"
-        >
+        <AppButton as-child>
           <NuxtLink to="/quiz?mode=quiz">
             <v-box is="span" fs="1.25rem" class="material-symbols-outlined">
               play_arrow
             </v-box>
             <v-box is="span">Start Quiz</v-box>
           </NuxtLink>
-        </v-box>
+        </AppButton>
 
         <v-box
           as-child

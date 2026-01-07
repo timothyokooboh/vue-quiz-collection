@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import FaqSectionDetails from "@/components/landing-page/FaqSectionDetails.vue";
+</script>
+
 <template>
   <v-box is="section" bg="cl-background-alt" px="sp-4" pb="5rem">
     <v-box mx="auto" max-w="48rem">

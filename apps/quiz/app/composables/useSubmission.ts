@@ -1,15 +1,8 @@
-import type { ShallowRef } from "vue";
-import type { SelectedOption } from "~/pages/quiz.vue";
+import type { SelectedOption } from "~/types";
 
-type ValidationMessageRef = Readonly<ShallowRef<HTMLParagraphElement[] | null>>;
-
-export const useSubmission = (
-  validationMessageRef: ValidationMessageRef,
-  selectedOptions: Ref<SelectedOption[]>,
-) => {
+export const useSubmission = (selectedOptions: Ref<SelectedOption[]>) => {
   const { filteredQuiz } = useFilters();
   const showResult = ref(false);
-  const isInvalidSubmission = ref(false);
 
   const totalCorrectAnswers = computed(
     () =>
@@ -26,30 +19,11 @@ export const useSubmission = (
     );
   });
 
-  const scrollToFirstQuestionWithoutAnswer = () => {
-    if (!validationMessageRef.value) return;
-    validationMessageRef.value[0]?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-  };
-
-  const showValidationMessage = (questionId: string) => {
-    const hasNoAnswer =
-      selectedOptions.value.find((s) => s.questionId === questionId) ===
-      undefined;
-
-    return isInvalidSubmission.value && hasNoAnswer;
-  };
+  const hasAnsweredAllQuestions = computed(
+    () => selectedOptions.value.length === filteredQuiz.value.length,
+  );
 
   const submitQuiz = async () => {
-    if (selectedOptions.value.length !== filteredQuiz.value.length) {
-      isInvalidSubmission.value = true;
-      await nextTick();
-      scrollToFirstQuestionWithoutAnswer();
-      return;
-    }
-
     showResult.value = true;
     await nextTick();
     window.scrollTo({
@@ -60,9 +34,8 @@ export const useSubmission = (
 
   return {
     submitQuiz,
-    isInvalidSubmission,
+    hasAnsweredAllQuestions,
     showResult,
-    showValidationMessage,
     totalCorrectAnswers,
     percentageScore,
   };

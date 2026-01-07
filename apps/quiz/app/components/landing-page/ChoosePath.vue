@@ -1,3 +1,6 @@
+<script lang="ts" setup>
+import ChoosePathCard from "./ChoosePathCard.vue";
+</script>
 <template>
   <!---
   <section class="bg-background-alt px-4 py-20">
