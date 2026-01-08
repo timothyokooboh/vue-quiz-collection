@@ -31,10 +31,23 @@ const route = useRoute();
     >
       <TradeMark />
 
+      <NuxtLink
+        to="/vue-tips"
+        class="text-muted hover:text-primary-foreground font-medium duration-200"
+        >Vue.js Tips</NuxtLink
+      >
+
       <v-box display="flex" align-items="center" gap="sp-4">
-        <AppButton v-if="route.meta.showStartQuiz" as-child size="sm">
-          <NuxtLink to="/quiz">Start Quiz</NuxtLink>
-        </AppButton>
+        <v-box
+          display="none"
+          :sm="{
+            display: 'block',
+          }"
+        >
+          <AppButton v-if="route.meta.showStartQuiz" as-child size="sm">
+            <NuxtLink to="/quiz">Start Quiz</NuxtLink>
+          </AppButton>
+        </v-box>
 
         <v-box as-child mt="5px" color="cl-slate-400">
           <a href="#">

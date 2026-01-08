@@ -15,8 +15,16 @@
 
     <slot name="code" />
 
-    <v-box py="sp-3" color="cl-text-muted" fs="fs-base" px="1rem" lh="lh-loose">
-      <v-box>
+    <v-box
+      py="sp-3"
+      display="flex"
+      flex-direction="column"
+      color="cl-text-muted"
+      fs="fs-base"
+      px="1rem"
+      lh="lh-loose"
+    >
+      <v-box pb="sp-2">
         <v-box
           color="cl-primary-dark"
           bg="cl-slate-100"
@@ -29,18 +37,18 @@
           fs="fs-sm"
           fw="fw-bold"
         >
-          TIP #42
+          TIP #{{ position }}
         </v-box>
 
         <slot name="text" />
       </v-box>
 
       <v-box
+        mt="auto"
         display="flex"
         align-items="center"
         justify-content="space-between"
         fs="fs-sm"
-        mt="1rem"
         pt="1rem"
         border-top="1px solid cl-border-light"
         gap="0.7rem"
@@ -63,8 +71,14 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{
-  type: string;
-  reference: string;
-}>();
+withDefaults(
+  defineProps<{
+    type: string;
+    reference: string;
+    position?: number;
+  }>(),
+  {
+    position: 1,
+  },
+);
 </script>
