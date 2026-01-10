@@ -12,13 +12,15 @@ import {
   AlertDialogTitle,
 } from "~/components/ui/alert-dialog";
 
+/*
 import {
   QuizRoot,
   QuizHeader,
   QuizBody,
   QuizOption,
   QuizFeedback,
-} from "@vqc/quiz-ui-kit";
+} from "@vqc/quiz-ui-kit"; */
+
 import type { SelectedOption } from "~/types";
 
 const VALIDATE_SUBMISSION = true;

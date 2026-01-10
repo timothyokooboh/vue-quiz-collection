@@ -8,20 +8,13 @@
       <span>{{ progressPercentage.toFixed(0) }}% Complete</span>
     </div>
 
-    <QuizProgress
-      v-model="progressPercentage"
-      :theme="{
-        indicatorBgColor: theme?.indicatorBgColor,
-        rootBgColor: theme?.rootBgColor,
-      }"
-      class="w-full"
-    />
+    <Progress v-model="progressPercentage" class="w-full" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { Progress as QuizProgress } from "@/components/ui/progress";
+import { Progress } from "@/components/ui/progress";
 import type { ProgressTheme } from "@/components/ui/progress";
 
 export type QuizProgressProps = {

@@ -19,7 +19,7 @@ import {
 
 export type QuizRootProps = {
   questionId: string;
-  correctOptionId: string;
+  correctOptionId: number;
   totalQuestions: number;
   showResult: boolean;
 };
@@ -33,7 +33,7 @@ const emit = defineEmits<{
 }>();
 
 const selectedOption = ref<
-  (SelectedOption & { correctOptionId: string }) | null
+  (SelectedOption & { correctOptionId: number }) | null
 >(null);
 
 const quizRootStatus = computed<"default" | "success" | "error">(() => {

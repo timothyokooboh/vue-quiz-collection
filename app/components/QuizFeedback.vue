@@ -53,7 +53,6 @@ import { quizRootStatusKey, showResultKey } from "@/injection-keys";
 import { Check, X } from "lucide-vue-next";
 
 export type QuizFeedbackProps = {
-  referenceLink: string;
   theme?: {
     successBgColor?: string;
     successBorderColor?: string;

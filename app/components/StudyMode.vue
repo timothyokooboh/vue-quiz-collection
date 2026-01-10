@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import { vConfetti } from "@neoconfetti/vue";
 import Button from "~/components/ui/button/Button.vue";
-
-import {
-  QuizRoot,
-  QuizHeader,
-  QuizBody,
-  QuizOption,
-  QuizFeedback,
-  QuizProgress,
-} from "@vqc/quiz-ui-kit";
 import type { SelectedOption } from "~/types";
 
 const { filteredQuiz: questions } = useFilters();
@@ -23,7 +14,7 @@ const currentQuestion = computed(
 
 const goToPreviousQuestion = () => {
   showResult.value = false;
-
+  selectedOption.value = null;
   currentQuestionIndex.value--;
 };
 
@@ -119,18 +110,31 @@ const goToNextQuestion = () => {
     >
 
     <Button
-      v-if="showResult"
+      v-if="currentQuestionIndex === questions.length - 1"
+      :disabled="showResult"
+      class="ml-auto"
+      variant="ghost"
+      @click="showResult = true"
+    >
+      Done
+    </Button>
+
+    <Button
+      v-else-if="showResult"
       class="ml-auto"
       variant="ghost"
       @click="goToNextQuestion"
-      >Next question</Button
     >
+      Next question
+    </Button>
+
     <Button
       v-else
       variant="ghost"
       :disabled="showResult || !selectedOption"
       @click="showResult = true"
-      >Submit</Button
     >
+      Submit
+    </Button>
   </div>
 </template>

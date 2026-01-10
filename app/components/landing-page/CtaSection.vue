@@ -87,7 +87,7 @@
           scale: 0.95,
         }"
       >
-        <NuxtLink to="/quiz"> Start Your Quiz </NuxtLink>
+        <NuxtLink to="/quiz?mode=quiz"> Start Your Quiz </NuxtLink>
       </v-box>
     </v-box>
   </v-box>

@@ -1,5 +1,5 @@
 import type { ComputedRef, InjectionKey } from "vue";
-import type { SelectedOption } from "@/App.vue";
+import type { SelectedOption } from "@/types";
 
 export const quizRootStatusKey: InjectionKey<
   ComputedRef<"default" | "success" | "error">
@@ -12,7 +12,7 @@ export const totalQuestionsKey: InjectionKey<ComputedRef<number>> =
   Symbol("totalQuestions");
 
 export const selectedOptionIdKey: InjectionKey<
-  ComputedRef<SelectedOption["id"]>
+  ComputedRef<SelectedOption["selectedOptionId"]>
 > = Symbol("selectedOptionId");
 
 export const showResultKey: InjectionKey<ComputedRef<boolean>> =

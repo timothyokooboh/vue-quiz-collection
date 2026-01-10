@@ -46,7 +46,7 @@ const route = useRoute();
           }"
         >
           <AppButton v-if="route.meta.showStartQuiz" as-child size="sm">
-            <NuxtLink to="/quiz">Start Quiz</NuxtLink>
+            <NuxtLink to="/quiz?mode=quiz">Start Quiz</NuxtLink>
           </AppButton>
         </v-box>
 
