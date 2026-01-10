@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { keyframes } from "@veebox/core";
+import gsap from "gsap";
 
 const pulse = keyframes({
   "0%": {
@@ -11,6 +12,43 @@ const pulse = keyframes({
   "50%": {
     opacity: 0.5,
   },
+});
+
+onMounted(() => {
+  const tl = gsap.timeline({ delay: 0.2 });
+
+  tl.fromTo(
+    ".hero-title",
+    { y: 60, opacity: 0 },
+    { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
+  )
+    .fromTo(
+      ".hero-subtitle",
+      {
+        y: 40,
+        opacity: 0,
+      },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+      "-=0.6",
+    )
+    .fromTo(
+      ".hero-cta",
+      {
+        y: 30,
+        opacity: 0,
+      },
+      { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+      "-=0.4",
+    )
+    .fromTo(
+      ".hero-stack-prefixes",
+      {
+        y: 20,
+        opacity: 0,
+      },
+      { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" },
+      "-=0.2",
+    );
 });
 </script>
 
@@ -98,6 +136,7 @@ const pulse = keyframes({
 
       <v-box
         is="h1"
+        class="hero-title"
         fs="3rem"
         lh="lh-tight"
         ls="ls-tight"
@@ -114,6 +153,7 @@ const pulse = keyframes({
 
       <v-box
         as-child
+        class="hero-subtitle"
         color="cl-text-muted"
         fs="fs-lg"
         fw="fw-light"
@@ -129,6 +169,7 @@ const pulse = keyframes({
       </v-box>
 
       <v-box
+        class="hero-cta"
         display="flex"
         flex-direction="column-reverse"
         gap="sp-4"
@@ -178,6 +219,7 @@ const pulse = keyframes({
       </v-box>
 
       <v-box
+        class="hero-stack-prefixes"
         mt="sp-12"
         display="flex"
         align-items="center"

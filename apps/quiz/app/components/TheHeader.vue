@@ -51,7 +51,10 @@ const route = useRoute();
         </v-box>
 
         <v-box as-child mt="5px" color="cl-slate-400">
-          <a href="#">
+          <a
+            href="https://github.com/timothyokooboh/vue-quiz-collection"
+            target="_blank"
+          >
             <Icon name="mdi:github" size="24" />
           </a>
         </v-box>
