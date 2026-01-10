@@ -111,8 +111,8 @@ const manageSubmission = (validate: boolean = true) => {
     <QuizRoot
       v-for="(question, index) in questions"
       ref="quizRoot"
-      :key="question._id + resetKey"
-      :question-id="question._id"
+      :key="question.id + resetKey"
+      :question-id="question.id"
       :correct-option-id="question.correctOptionId"
       :total-questions="questions?.length ?? 0"
       :show-result="showResult"

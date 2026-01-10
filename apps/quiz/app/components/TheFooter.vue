@@ -14,7 +14,7 @@
         grid-template-columns="1fr 1fr"
         gap="sp-10"
         :md="{
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: 'repeat(3, 1fr)',
         }"
       >
         <v-box
@@ -73,7 +73,6 @@
                 :hover="{
                   color: 'cl-primary',
                 }"
-                href="#"
               >
                 <NuxtLink to="/quiz"> Quiz Mode </NuxtLink>
               </v-box>
@@ -86,9 +85,20 @@
                 :hover="{
                   color: 'cl-primary',
                 }"
-                href="#"
               >
                 <NuxtLink to="/quiz?mode=study"> Study Mode </NuxtLink>
+              </v-box>
+            </v-box>
+
+            <v-box is="li">
+              <v-box
+                as-child
+                transition="color 0.2s ease-in-out"
+                :hover="{
+                  color: 'cl-primary',
+                }"
+              >
+                <NuxtLink to="/vue-tips"> Vue.js Tips </NuxtLink>
               </v-box>
             </v-box>
           </v-box>
@@ -143,46 +153,6 @@
                 }"
               >
                 Pinia Docs
-              </v-box>
-            </v-box>
-          </v-box>
-        </div>
-
-        <div>
-          <v-box color="cl-text-main" mb="sp-4" fw="fw-bold">Legal</v-box>
-          <v-box
-            is="ul"
-            color="cl-text-muted"
-            display="flex"
-            flex-direction="column"
-            gap="sp-2"
-            fs="fs-sm"
-          >
-            <v-box is="li">
-              <v-box
-                as-child
-                transition="color 0.2s ease-in-out"
-                :hover="{
-                  color: 'cl-primary',
-                }"
-                href="#"
-              >
-                <NuxtLink to="/privacy-policy#introduction">
-                  Privacy Policy
-                </NuxtLink>
-              </v-box>
-            </v-box>
-
-            <v-box is="li">
-              <v-box
-                as-child
-                transition="color 0.2s ease-in-out"
-                :hover="{
-                  color: 'cl-primary',
-                }"
-                href="#"
-              >
-                <NuxtLink to="/terms-of-service"> Terms of Service </NuxtLink>
               </v-box>
             </v-box>
           </v-box>

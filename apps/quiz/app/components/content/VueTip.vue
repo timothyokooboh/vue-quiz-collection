@@ -1,3 +1,18 @@
+<script lang="ts" setup>
+import Button from "../ui/button/Button.vue";
+
+withDefaults(
+  defineProps<{
+    type: string;
+    reference: string;
+    position?: number;
+  }>(),
+  {
+    position: 1,
+  },
+);
+</script>
+
 <template>
   <v-box
     v-if="type === 'vue-tip'"
@@ -26,18 +41,24 @@
     >
       <v-box pb="sp-2">
         <v-box
-          color="cl-primary-dark"
-          bg="cl-slate-100"
+          display="flex"
+          align-items="center"
+          justify-content="space-between"
           mb="sp-3"
-          px="sp-4"
-          py="sp-1"
-          display="inline-block"
-          w="fit-content"
-          radius="br-md"
-          fs="fs-sm"
-          fw="fw-bold"
         >
-          TIP #{{ position }}
+          <v-box
+            color="cl-primary-dark"
+            bg="cl-slate-100"
+            px="sp-4"
+            py="sp-1"
+            display="inline-block"
+            w="fit-content"
+            radius="br-md"
+            fs="fs-sm"
+            fw="fw-bold"
+          >
+            TIP #{{ position }}
+          </v-box>
         </v-box>
 
         <slot name="text" />
@@ -69,16 +90,3 @@
     </v-box>
   </v-box>
 </template>
-
-<script lang="ts" setup>
-withDefaults(
-  defineProps<{
-    type: string;
-    reference: string;
-    position?: number;
-  }>(),
-  {
-    position: 1,
-  },
-);
-</script>

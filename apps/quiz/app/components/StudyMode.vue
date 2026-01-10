@@ -59,8 +59,8 @@ const goToNextQuestion = () => {
   <AppTransition from="right">
     <QuizRoot
       v-if="currentQuestion"
-      :key="currentQuestion._id"
-      :question-id="currentQuestion._id"
+      :key="currentQuestion.id"
+      :question-id="currentQuestion.id"
       :correct-option-id="currentQuestion.correctOptionId"
       :total-questions="questions.length"
       :show-result="showResult"

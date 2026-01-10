@@ -10,7 +10,9 @@ import { computed } from "vue";
 const props = withDefaults(
   defineProps<{
     from?: "bottom" | "top" | "left" | "right";
-    // duration in seconds
+    /**
+     * duration in seconds
+     */
     duration?: number;
     // delay in seconds
     delay?: number;

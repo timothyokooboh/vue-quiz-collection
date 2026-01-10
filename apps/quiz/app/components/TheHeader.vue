@@ -34,8 +34,9 @@ const route = useRoute();
       <NuxtLink
         to="/vue-tips"
         class="text-muted hover:text-primary-foreground font-medium duration-200"
-        >Vue.js Tips</NuxtLink
       >
+        Vue.js Tips
+      </NuxtLink>
 
       <v-box display="flex" align-items="center" gap="sp-4">
         <v-box
