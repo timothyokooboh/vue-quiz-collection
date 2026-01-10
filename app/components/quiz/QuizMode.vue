@@ -12,14 +12,12 @@ import {
   AlertDialogTitle,
 } from "~/components/ui/alert-dialog";
 
-/*
-import {
-  QuizRoot,
-  QuizHeader,
-  QuizBody,
-  QuizOption,
-  QuizFeedback,
-} from "@vqc/quiz-ui-kit"; */
+import QuizRoot from "./QuizRoot.vue";
+import QuizHeader from "./QuizHeader.vue";
+import QuizBody from "./QuizBody.vue";
+import QuizFeedback from "./QuizFeedback.vue";
+import QuizOption from "./QuizOption.vue";
+
 
 import type { SelectedOption } from "~/types";
 

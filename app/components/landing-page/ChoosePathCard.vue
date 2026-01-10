@@ -106,11 +106,11 @@
 
 <script setup lang="ts">
 defineProps<{
-  icon: string;
-  title: string;
-  description: string;
-  list: string[];
-  link: string;
-  cta: string;
+  icon: string
+  title: string
+  description: string
+  list: string[]
+  link: string
+  cta: string
 }>();
 </script>

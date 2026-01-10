@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { totalQuestionsKey } from "@/injection-keys";
 import { inject } from "vue";
-import Badge from "./ui/badge/Badge.vue";
+import Badge from "@/components/ui/badge/Badge.vue";
 
 export type QuizHeaderProps = {
   tags: string[];

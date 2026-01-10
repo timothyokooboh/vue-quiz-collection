@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+  import { useRouteQuery } from "@vueuse/router";
+
 import { Button } from "@/components/ui/button";
 import {
   Stepper,
@@ -7,7 +9,10 @@ import {
   StepperTitle,
   StepperTrigger,
 } from "@/components/ui/stepper";
-import { useRouteQuery } from "@vueuse/router";
+
+import QuizMode from "~/components/quiz/QuizMode.vue";
+import StudyMode from "~/components/quiz/StudyMode.vue";
+import QuizFilters from "~/components/quiz/QuizFilters.vue";
 
 useSeoMeta({
   title: "Vue.js Quiz",

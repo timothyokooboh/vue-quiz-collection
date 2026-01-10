@@ -182,6 +182,12 @@
             href="https://veebox.xyz"
             target="_blank"
             color="cl-primary"
+            :hover="{
+              textDecoration: 'underline'
+            }"
+            :focus-visible="{
+              textDecoration: 'underline'
+            }"
           >
             Veebox
           </v-box>

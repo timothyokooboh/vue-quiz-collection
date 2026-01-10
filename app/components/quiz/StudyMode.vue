@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { vConfetti } from "@neoconfetti/vue";
 import Button from "~/components/ui/button/Button.vue";
+
+import QuizRoot from "./QuizRoot.vue";
+import QuizHeader from "./QuizHeader.vue";
+import QuizBody from "./QuizBody.vue";
+import QuizFeedback from "./QuizFeedback.vue";
+import QuizOption from "./QuizOption.vue";
+
 import type { SelectedOption } from "~/types";
 
 const { filteredQuiz: questions } = useFilters();
