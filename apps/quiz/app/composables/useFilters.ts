@@ -33,7 +33,7 @@ export const useFilters = () => {
   );
 
   // sync mode with URL
-  const mode = useRouteQuery<string>("mode", "quiz");
+  const mode = useRouteQuery<string>("mode", "study");
   const updateMode = (value: string) => {
     mode.value = value;
   };

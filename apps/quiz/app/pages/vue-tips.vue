@@ -6,9 +6,7 @@
           class="mb-4 text-balance text-center text-4xl font-bold sm:text-5xl"
         >
           <span class="text-gray-900">Master Vue.js: </span>
-          <span class="text-primary-foreground">
-            {{ filteredQuiz.length }} Pro Tips
-          </span>
+          <span class="text-brand"> {{ filteredQuiz.length }} Pro Tips </span>
         </h1>
 
         <p class="mx-auto max-w-2xl text-pretty text-lg text-gray-600">

@@ -33,7 +33,7 @@ const route = useRoute();
 
       <NuxtLink
         to="/vue-tips"
-        class="text-muted hover:text-primary-foreground font-medium duration-200"
+        class="text-muted hover:text-brand font-medium duration-200"
       >
         Vue.js Tips
       </NuxtLink>

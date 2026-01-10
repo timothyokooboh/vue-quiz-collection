@@ -1,3 +1,42 @@
+<script lang="ts" setup>
+import { Button } from "@/components/ui/button";
+import {
+  Stepper,
+  StepperItem,
+  StepperSeparator,
+  StepperTitle,
+  StepperTrigger,
+} from "@/components/ui/stepper";
+import { useRouteQuery } from "@vueuse/router";
+
+useSeoMeta({
+  title: "Vue.js Quiz",
+  description: "Test your Vue.js knowledge with this interactive quiz!",
+  ogTitle: "Vue.js Quiz",
+  ogDescription: "Test your Vue.js knowledge with this interactive quiz!",
+});
+
+const steps = [
+  {
+    step: 1,
+    title: "Filters",
+    description: "Optionally apply filters to narrow down the questions",
+  },
+  {
+    step: 2,
+    title: "Quiz",
+    description: "Start answering the questions",
+  },
+];
+
+const { mode, filteredQuiz } = useFilters();
+
+// sync active step with URL
+const activeStep = useRouteQuery<number>("step", 1, {
+  transform: Number,
+});
+</script>
+
 <template>
   <div class="mx-auto max-w-[960px] p-5">
     <Stepper v-model="activeStep" class="mb-4 flex w-full items-start gap-2">
@@ -79,50 +118,3 @@
     </AppTransition>
   </div>
 </template>
-
-<script lang="ts" setup>
-import { Button } from "@/components/ui/button";
-import {
-  Stepper,
-  StepperItem,
-  StepperSeparator,
-  StepperTitle,
-  StepperTrigger,
-} from "@/components/ui/stepper";
-import { useRouteQuery } from "@vueuse/router";
-
-const steps = [
-  {
-    step: 1,
-    title: "Filters",
-    description: "Optionally apply filters to narrow down the questions",
-  },
-  {
-    step: 2,
-    title: "Quiz",
-    description: "Start answering the questions",
-  },
-];
-
-useSeoMeta({
-  title: "Vue.js Quiz",
-  description: "Test your Vue.js knowledge with this interactive quiz!",
-  ogTitle: "Vue.js Quiz",
-  ogDescription: "Test your Vue.js knowledge with this interactive quiz!",
-});
-
-const { mode, filteredQuiz } = useFilters();
-
-// sync active step with URL
-const activeStep = useRouteQuery<number>("step", 1, {
-  transform: Number,
-});
-
-// watch(activeStep, () => {
-//   selectedOptions.value = [];
-//   showResult.value = false;
-//   isInvalidSubmission.value = false;
-// });
-
-// study mode
-</script>

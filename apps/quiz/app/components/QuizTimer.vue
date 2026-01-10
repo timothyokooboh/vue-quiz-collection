@@ -62,13 +62,15 @@ const formatted = computed(() => {
 });
 
 const isLessThan15MinutesRemaining = computed(() => {
-  const hour = formatted.value.split(":")[0];
-  if (hour) return parseInt(hour) < 15;
-  return true;
+  if (!remainingSeconds.value) return true;
+
+  return remainingSeconds.value < 15 * 60;
 });
 
 onMounted(start);
 onUnmounted(clear);
 
 watch(() => props.minutes, start);
+
+defineExpose({ clear });
 </script>

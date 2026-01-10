@@ -1,5 +1,5 @@
 <template>
-  <div role="region" aria-live="assertive" aria-atomic="true">
+  <section aria-live="assertive" aria-atomic="true">
     <div
       v-if="showResult"
       class="quiz-feedback rounded-md border p-3"
@@ -44,7 +44,7 @@
 
       <slot name="explanation" :status="quizRootStatus"> </slot>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">

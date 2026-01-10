@@ -35,6 +35,7 @@ const {
 } = useSubmission(selectedOptions);
 
 const resetKey = ref(0);
+const quizTimerRef = useTemplateRef("quiz-timer-ref");
 const showConfirmationModal = ref(false);
 
 const onSelectOption = (payload: SelectedOption) => {
@@ -63,12 +64,14 @@ const manageSubmission = (validate: boolean = true) => {
 
   submitQuiz();
   showConfirmationModal.value = false;
+  quizTimerRef.value?.clear();
 };
 </script>
 
 <template>
   <Teleport defer to="#quiz-timer">
     <QuizTimer
+      ref="quiz-timer-ref"
       :key="resetKey"
       :minutes="questions.length * 2"
       @done="submitQuiz"
