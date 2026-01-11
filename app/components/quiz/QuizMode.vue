@@ -18,7 +18,6 @@ import QuizBody from "./QuizBody.vue";
 import QuizFeedback from "./QuizFeedback.vue";
 import QuizOption from "./QuizOption.vue";
 
-
 import type { SelectedOption } from "~/types";
 
 const VALIDATE_SUBMISSION = true;
@@ -30,6 +29,7 @@ const {
   showResult,
   submitQuiz,
   hasAnsweredAllQuestions,
+  questionsWithoutAnswers,
   totalCorrectAnswers,
   percentageScore,
 } = useSubmission(selectedOptions);
@@ -40,14 +40,21 @@ const showConfirmationModal = ref(false);
 
 const onSelectOption = (payload: SelectedOption) => {
   const existingIndex = selectedOptions.value.findIndex(
-    (option) => option.questionId === payload.questionId,
+    (option) => option.questionId === payload.questionId
   );
-  if (existingIndex !== -1) {
-    selectedOptions.value[existingIndex] = payload;
+
+  if (existingIndex === -1) {
+    console.log("sefunmi");
+    selectedOptions.value = [...selectedOptions.value, payload];
     return;
   }
 
-  selectedOptions.value = [...selectedOptions.value, payload];
+  console.log("pishaun");
+  // selectedOptions.value[existingIndex] = payload;
+  selectedOptions.value = selectedOptions.value.map((opt) => {
+    if (opt.questionId === payload.questionId) return payload;
+    return opt;
+  });
 };
 
 const restartQuiz = () => {
@@ -81,7 +88,7 @@ const manageSubmission = (validate: boolean = true) => {
   <div class="flex flex-col gap-3">
     <section
       v-if="showResult"
-      class="my-4 flex flex-col items-center gap-3 rounded-lg bg-gray-50 py-8"
+      class="my-4 flex flex-col items-center gap-3 bg-gray-50 py-8 rounded-lg"
     >
       <div
         v-if="showResult && percentageScore >= 80"
@@ -170,7 +177,8 @@ const manageSubmission = (validate: boolean = true) => {
       <AlertDialogHeader>
         <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
         <AlertDialogDescription>
-          You have not provided an answer to all questions.
+          You have not provided an answer to the following questions:
+          <p>{{ questionsWithoutAnswers.join(', ') }}</p>
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>

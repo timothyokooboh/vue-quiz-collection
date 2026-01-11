@@ -7,20 +7,43 @@ export const useSubmission = (selectedOptions: Ref<SelectedOption[]>) => {
   const totalCorrectAnswers = computed(
     () =>
       selectedOptions.value.filter(
-        (s) => s.selectedOptionId === s.correctOptionId,
-      ).length,
+        (s) => s.selectedOptionId === s.correctOptionId
+      ).length
   );
 
   const percentageScore = computed(() => {
     return parseInt(
-      ((totalCorrectAnswers.value / filteredQuiz.value.length) * 100).toFixed(
-        2,
-      ),
+      ((totalCorrectAnswers.value / filteredQuiz.value.length) * 100).toFixed(2)
     );
   });
 
+  const questionsWithoutAnswers = ref<number[]>([]);
+
+  watchEffect(() => {
+    if (selectedOptions.value.length === 0) {
+      questionsWithoutAnswers.value = filteredQuiz.value.map(
+        (question, index) => index + 1
+      );
+      return;
+    }
+
+    questionsWithoutAnswers.value = [];
+
+     for (let i = 0; i < filteredQuiz.value.length; i++) {
+      const currentQuestion = filteredQuiz.value[i];
+      if (
+        selectedOptions.value.find((s) => s.questionId === currentQuestion?.id)
+      ) {
+        questionsWithoutAnswers.value = questionsWithoutAnswers.value.filter((pos) => pos - 1 !== i);
+      } else {
+        questionsWithoutAnswers.value.push(i + 1);
+      }
+    }
+  });
+
+
   const hasAnsweredAllQuestions = computed(
-    () => selectedOptions.value.length === filteredQuiz.value.length,
+    () => questionsWithoutAnswers.value.length === 0
   );
 
   const submitQuiz = async () => {
@@ -38,5 +61,6 @@ export const useSubmission = (selectedOptions: Ref<SelectedOption[]>) => {
     showResult,
     totalCorrectAnswers,
     percentageScore,
+    questionsWithoutAnswers,
   };
 };
