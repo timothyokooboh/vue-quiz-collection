@@ -164,7 +164,7 @@ onMounted(() => {
       >
         <p>
           Deepen your understanding of Vue, Pinia, and Vue Router through
-          curated quizzes and interactive study modes.
+          curated quizzes and actionable pro tips.
         </p>
       </v-box>
 
