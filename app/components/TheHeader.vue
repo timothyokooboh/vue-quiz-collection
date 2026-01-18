@@ -1,7 +1,3 @@
-<script lang="ts" setup>
-const route = useRoute();
-</script>
-
 <template>
   <v-box
     is="nav"
@@ -45,7 +41,7 @@ const route = useRoute();
             display: 'block',
           }"
         >
-          <AppButton v-if="route.meta.showStartQuiz" as-child size="sm">
+          <AppButton as-child size="sm">
             <NuxtLink to="/quiz?mode=quiz">Start Quiz</NuxtLink>
           </AppButton>
         </v-box>

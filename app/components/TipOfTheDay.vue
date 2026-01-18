@@ -6,10 +6,15 @@ defineProps<{
 }>();
 
 onMounted(() => {
-  gsap.fromTo('.vue-tip', {
-    y: 40, opacity: 0
-  }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out'})
-})
+  gsap.fromTo(
+    ".vue-tip",
+    {
+      y: 40,
+      opacity: 0,
+    },
+    { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }
+  );
+});
 </script>
 
 <template>
