@@ -27,14 +27,14 @@
     >
       <TradeMark />
 
-      <NuxtLink
-        to="/vue-tips"
-        class="text-muted hover:text-brand font-medium duration-200"
-      >
-        Vue.js Tips
-      </NuxtLink>
-
       <v-box display="flex" align-items="center" gap="sp-4">
+        <NuxtLink
+          to="/vue-tips"
+          class="text-muted hover:text-brand font-medium duration-200"
+        >
+          Vue.js Tips
+        </NuxtLink>
+
         <v-box
           display="none"
           :sm="{
